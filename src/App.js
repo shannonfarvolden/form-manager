@@ -10,7 +10,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Broadridge Inform Config</h1>
         </header>
-        <h3>Best team ever!</h3>
+        <h3>Best team ever!!</h3>
       </div>
     );
   }
