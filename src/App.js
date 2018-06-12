@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import logo from './images/logo.png';
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+
+import HomeContainer from './containers/Home'
 import './App.css';
 
+import store from './redux/store'
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Broadridge Inform Config</h1>
-        </header>
-        <h3>Best team ever!</h3>
+        <Provider store={store}>
+          <HomeContainer />
+        </Provider> 
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
