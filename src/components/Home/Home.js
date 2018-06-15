@@ -8,7 +8,7 @@ const Home = ({ config }) => {
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Broadridge Inform Config</h1>
       </header>
-      <h3>{config.message}</h3>
+      {/* <h3>{config.message}</h3> */}
     </div>
   );
 };
