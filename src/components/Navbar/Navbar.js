@@ -6,9 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Form from "../Form";
-import HomeContainer from "../../containers/Home";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -26,7 +24,6 @@ const styles = {
 const Navbar = (props) => {
   const { classes } = props;
   return (
-    <Router>
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>
@@ -47,11 +44,8 @@ const Navbar = (props) => {
               <Link to="/form">Forms</Link>
             </Button>
           </Toolbar>
-        </AppBar>
-        <Route path="/form" exact component={Form} />
-        <Route path="/" exact component={HomeContainer} />        
+        </AppBar>       
       </div>
-    </Router>
   );
 }
 

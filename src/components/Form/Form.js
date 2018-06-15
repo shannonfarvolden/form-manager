@@ -1,33 +1,44 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 
-const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3
-  })
-});
-
-const Form = props => {
-  const { classes } = props;
+const Form = () => {
   return (
     <div>
-      <Paper className={classes.root} elevation={4}>
-        <Typography variant="headline" component="h3">
-          Form A.
-        </Typography>
-        <Typography component="p">Lorem Ipsem.</Typography>
-      </Paper>
+      <img
+        src={require('./../../images/ex_w8_1.png')}
+        alt=''
+        style={{
+          position: 'absolute',
+          marginTop: '100px',
+          top: 0,
+          left: 0,
+          width: '800px'
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          marginTop: '100px',
+          top: 0,
+          left: 0,
+          width: '800px'
+        }}
+      >
+      <input
+        type='text'
+        name='full_name'
+        id='ex_w8-1-1-full_name'
+        value='John Doe'
+        style={{
+          position: 'absolute',
+          top: '310px',
+          left: '80px',
+          width: '200px',
+          backgroundColor: 'yellow'
+        }}
+      />
+      </div>
     </div>
   );
 };
 
-Form.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(Form);
+export default Form;
