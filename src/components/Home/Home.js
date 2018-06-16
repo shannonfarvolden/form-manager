@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../images/logo.png";
+import { Link } from "react-router-dom";
 
 const Home = ({ config }) => {
   return (
@@ -8,7 +9,8 @@ const Home = ({ config }) => {
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Broadridge Inform Config</h1>
       </header>
-      {/* <h3>{config.message}</h3> */}
+      <h3>{config.message}</h3>
+      <Link to="/config">Dialog</Link>
     </div>
   );
 };
