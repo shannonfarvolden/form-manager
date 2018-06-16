@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import HomeContainer from "./containers/Home";
+import PageContainer from "./containers/Page";
 import Form from "./components/Form";
 import Navbar from "./components/Navbar";
 import "./App.css";
@@ -20,6 +21,7 @@ class App extends Component {
               <Switch>
                 <Route path="/" exact component={HomeContainer} />
                 <Route path="/form" exact component={Form} />
+                <Route path="/page" exact component={PageContainer} />
               </Switch>
             </main>
           </div>
