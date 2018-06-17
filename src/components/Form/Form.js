@@ -8,7 +8,7 @@ const Form = () => {
         alt=''
         style={{
           position: 'absolute',
-          marginTop: '100px',
+          marginTop: '150px',
           top: 0,
           left: 0,
           width: '800px'
@@ -30,7 +30,7 @@ const Form = () => {
         value='John Doe'
         style={{
           position: 'absolute',
-          top: '310px',
+          top: '360px',
           left: '80px',
           width: '200px',
           backgroundColor: 'yellow'

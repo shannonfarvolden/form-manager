@@ -10,7 +10,6 @@ const Home = ({ config }) => {
         <h1 className="App-title">Broadridge Inform Config</h1>
       </header>
       <h3>{config.message}</h3>
-      <Link to="/config">Dialog</Link>
     </div>
   );
 };

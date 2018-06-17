@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router-dom";
 
 import HomeContainer from "../../containers/Home";
 import Form from "../Form";
-import Dialog from "../Dialog";
 
 const Main = () => {
   return (
@@ -11,7 +10,6 @@ const Main = () => {
       <Switch>
         <Route path="/" exact component={HomeContainer} />
         <Route path="/form" exact component={Form} />
-        <Route path="/config" exact component={Dialog} />
       </Switch>
     </main>
   );
