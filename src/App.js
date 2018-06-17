@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import HomeContainer from "./containers/Home";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import "./App.css";
 
 import store from "./redux/store";
@@ -15,6 +16,7 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <HomeContainer />
+          <Sidebar />
         </div>
       </Provider>
     );
