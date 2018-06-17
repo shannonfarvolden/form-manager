@@ -18,7 +18,11 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  link: {
+    marginLeft: "10px"
   }
+
 };
 
 const Navbar = (props) => {
@@ -40,8 +44,11 @@ const Navbar = (props) => {
             >
               Broadridge
             </Typography>
-            <Button color="inherit">
+            <Button className='link' color="inherit">
               <Link to="/form">Forms</Link>
+            </Button>
+            <Button className='link' color="inherit">
+              <Link to="/page">Pages</Link>
             </Button>
           </Toolbar>
         </AppBar>       
