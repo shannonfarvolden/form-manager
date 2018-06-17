@@ -1,8 +1,12 @@
 import React from "react";
 
-const Page = () => {
+const Page = ({ pageConfig }) => {
+
   return (
-    <div>
+    (!pageConfig || pageConfig === {}) ? 
+    <p>Loading</p>
+    :
+    (<div>
       <img
         src={require('./../../images/ex_w8_1.png')}
         alt=''
@@ -23,35 +27,27 @@ const Page = () => {
           width: '800px'
         }}
       >
-      <input
-        type='text'
-        name='full_name'
-        id='ex_w8-1-1-full_name'
-        value='John Doe'
-        style={{
-          position: 'absolute',
-          top: '310px',
-          left: '80px',
-          width: '200px',
-          backgroundColor: 'yellow'
-        }}
-      />
-      <input
-        type='text'
-        name='citizenship'
-        id='ex_w8-1-1-citizenship'
-        value='Canada'
-        style={{
-          position: 'absolute',
-          top: '310px',
-          left: '500px',
-          width: '100px',
-          backgroundColor: 'yellow'
-        }}
-      />
+      {Object.keys(pageConfig).map(name => {
+        const field = pageConfig[name];
+        return (
+          <input
+              type='text'
+              name={name}
+              id='ex_w8-1-1-full_name'
+              value={field.defaultValue}
+              style={{
+                position: 'absolute',
+                top: field.top,
+                left: field.left,
+                width: field.width,
+                backgroundColor: 'beige'
+              }}
+            />)
+      })
+      }
       </div>
-    </div>
+    </div>)
   );
 };
 
-export default Page;
+export default Page

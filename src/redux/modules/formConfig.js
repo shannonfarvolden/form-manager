@@ -4,11 +4,11 @@ const GET_CONFIG_BEGIN = 'GET_CONFIG_BEGIN'
 const GET_CONFIG_SUCCESS = 'GET_CONFIG_SUCCESS'
 const CONFIG_ERROR = 'CONFIG_ERROR'
 
-export const getConfig = () => {
+export const getForms = () => {
   return dispatch => {
     try {
-      dispatch(getConfigBegin())
-      dispatch(getConfigSuccess({message: 'Best team ever!!!!'})) // later this will be async reading
+      dispatch(getFormsBegin())
+      dispatch(getFormsSuccess())
     } catch(error) {
       console.log('error', error)
       dispatch(configError(error))
@@ -16,13 +16,45 @@ export const getConfig = () => {
   }
 }
 
-const getConfigBegin = () => ({
+const getFormsBegin = () => ({
   type: GET_CONFIG_BEGIN
 })
 
-const getConfigSuccess = (data) => ({
+const getFormsSuccess = () => ({
   type: GET_CONFIG_SUCCESS,
-  data
+  currentPageId: 'ex_w8-1-1',
+  forms : {
+    'ex_w8': {
+      '1': {
+        '1': {
+          full_name: {
+            defaultValue: 'John Doe',
+            top: '310px',
+            left: '80px',
+            width: '200px'
+          },
+          citizenship: {
+            defaultValue: 'CAN',
+            top: '310px',
+            left: '500px',
+            width: '100px'
+          },
+          addr: {
+            defaultValue: 'Main st',
+            top: '340px',
+            left: '80px',
+            width: '500px'
+          },
+          city: {
+            defaultValue: 'Vancouver',
+            top: '372px',
+            left: '80px',
+            width: '300px'
+          }     
+        }
+      } 
+    }
+  }
 })
 
 const configError = (error) => ({
@@ -33,9 +65,11 @@ const configError = (error) => ({
 // Reducers
 
 const initialState = {
+  currentPageId: '',
+  forms: {},
   config: {},
   error: null,
-  isLoading: false
+  isLoading: true
 }
 
 export const configReducer = (state = initialState, action) => {
@@ -43,13 +77,14 @@ export const configReducer = (state = initialState, action) => {
     case 'GET_CONFIG_BEGIN':
     return {
       ...state,
-      list: [],
+      forms: {},
       isLoading: true
       }
       case 'GET_CONFIG_SUCCESS':
       return {
         ...state,
-        config: action.data,
+        currentPageId: action.currentPageId,
+        forms: action.forms,
         isLoading: false
         }
     case 'CONFIG_ERROR':
