@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form = () => {
+const Page = () => {
   return (
     <div>
       <img
@@ -36,9 +36,22 @@ const Form = () => {
           backgroundColor: 'yellow'
         }}
       />
+      <input
+        type='text'
+        name='citizenship'
+        id='ex_w8-1-1-citizenship'
+        value='Canada'
+        style={{
+          position: 'absolute',
+          top: '310px',
+          left: '500px',
+          width: '100px',
+          backgroundColor: 'yellow'
+        }}
+      />
       </div>
     </div>
   );
 };
 
-export default Form;
+export default Page;

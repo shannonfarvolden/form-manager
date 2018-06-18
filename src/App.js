@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import HomeContainer from "./containers/Home";
+import PageContainer from "./containers/Page";
+import Form from "./components/Form";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import "./App.css";
@@ -13,11 +15,19 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <Navbar />
-          <HomeContainer />
-          <Sidebar />
-        </div>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Sidebar />
+            <main>
+              <Switch>
+                <Route path="/" exact component={HomeContainer} />
+                <Route path="/form" exact component={Form} />
+                <Route path="/page" exact component={PageContainer} />
+              </Switch>
+            </main>
+          </div>
+        </Router>
       </Provider>
     );
   }

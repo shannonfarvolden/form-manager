@@ -6,8 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Form from "../Form";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -19,13 +18,16 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  link: {
+    marginLeft: "10px"
   }
+
 };
 
-function Navbar(props) {
+const Navbar = (props) => {
   const { classes } = props;
   return (
-    <Router>
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>
@@ -34,6 +36,7 @@ function Navbar(props) {
               color="inherit"
               aria-label="Menu"
             />
+            <Link to="/">Home</Link>
             <Typography
               variant="title"
               color="inherit"
@@ -41,14 +44,15 @@ function Navbar(props) {
             >
               Broadridge
             </Typography>
-            <Button color="inherit">
+            <Button className='link' color="inherit">
               <Link to="/form">Forms</Link>
             </Button>
+            <Button className='link' color="inherit">
+              <Link to="/page">Pages</Link>
+            </Button>
           </Toolbar>
-        </AppBar>
-        <Route path="/form" exact component={Form} />
+        </AppBar>       
       </div>
-    </Router>
   );
 }
 
