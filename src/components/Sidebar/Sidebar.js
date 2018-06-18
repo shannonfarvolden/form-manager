@@ -11,54 +11,37 @@ const informBtn = {
   margin: "5px"
 };
 
-export default class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handlePrev = this.handlePrev.bind(this);
-    this.handleNext = this.handleNext.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const Sidebar = ({handleSave}) => {
 
   /* Maybe in the future handling prev/next
   can be a single function, pass in a page ? */
-  handlePrev() {
-    let that = this;
+
+  // PREV and NEXT being handled locally, SAVE being handled in the redux
+
+  const handlePrev = () => {
     console.log("You pressed previous!");
-    console.log(that);
   }
 
-  handleNext() {
-    let that = this;
+  const handleNext = () => {
     console.log("You pressed next!");
-    console.log(that);
   }
 
-  handleSubmit() {
-    let that = this;
-    console.log("You pressed submit!");
-    console.log(that);
-  }
-
-  render() {
-    return (
-      // <Router>
+  return (
         <div >
           <Drawer
             anchor="right"
             variant="permanent">
             <div style={informBtn}>
-              <Button variant="raised" color="primary" onClick={this.handleSubmit}>
-                Submit
-              </Button>
+              <Button variant="raised" color="primary" onClick={handleSave}>Save</Button>
             </div>
             <div>
-              <Button style={informBtn} variant="raised" onClick={this.handlePrev} color="secondary">PREV</Button>
-              <Button style={informBtn} variant="raised" onClick={this.handleNext} color="secondary">NEXT</Button>
+              <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
+              <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
             </div>
           </Drawer>
         </div>
-      // </Router>
-    );
-  }
+  );
 }
+
+export default Sidebar;
+
