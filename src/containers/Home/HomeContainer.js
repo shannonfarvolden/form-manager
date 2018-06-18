@@ -1,26 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getConfig } from "../../redux/modules/formConfig";
+import { getForms } from "../../redux/modules/formConfig";
 
 import Home from "../../components/Home";
 
 class HomeContainer extends Component {
   componentDidMount() {
-    this.props.getConfig();
+    this.props.getForms();
   }
 
   render() {
     return this.props.isLoading ? (
       <p>Loading</p>
     ) : (
-      <Home config={this.props.config} />
+      <Home config={this.props.forms} />
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    config: state.formConfig.config,
+    forms: state.formConfig.forms,
     errors: state.formConfig.errors,
     isLoading: state.formConfig.isLoading
   };
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getConfig: () => dispatch(getConfig())
+    getForms: () => dispatch(getForms())
   };
 };
 
