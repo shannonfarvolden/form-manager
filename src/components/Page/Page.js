@@ -40,6 +40,7 @@ const Page = ({ pageConfig }) => {
                 top: field.top,
                 left: field.left,
                 width: field.width,
+                height: field.height,
                 backgroundColor: 'beige'
               }}
             />)
