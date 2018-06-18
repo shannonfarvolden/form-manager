@@ -22,7 +22,6 @@ const styles = {
   link: {
     marginLeft: "10px"
   }
-
 };
 
 const Navbar = (props) => {
@@ -36,7 +35,15 @@ const Navbar = (props) => {
               color="inherit"
               aria-label="Menu"
             />
-            <Link to="/">Home</Link>
+            <Button className='link' color="inherit">
+              <Link to="/">Home</Link>
+            </Button>
+            <Button className='link' color="inherit">
+              <Link to="/form">Forms</Link>
+            </Button>
+            <Button className='link' color="inherit">
+              <Link to="/page">Pages</Link>
+            </Button>
             <Typography
               variant="title"
               color="inherit"
@@ -44,12 +51,6 @@ const Navbar = (props) => {
             >
               Broadridge
             </Typography>
-            <Button className='link' color="inherit">
-              <Link to="/form">Forms</Link>
-            </Button>
-            <Button className='link' color="inherit">
-              <Link to="/page">Pages</Link>
-            </Button>
           </Toolbar>
         </AppBar>       
       </div>

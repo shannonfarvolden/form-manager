@@ -18,8 +18,8 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Sidebar />
             <main>
+              <Sidebar />
               <Switch>
                 <Route path="/" exact component={HomeContainer} />
                 <Route path="/form" exact component={Form} />
