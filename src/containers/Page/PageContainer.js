@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getForms } from "../../redux/modules/formConfig";
+import { getForms, saveConfig } from "../../redux/modules/formConfig";
 
+import Sidebar from "../../components/Sidebar";
 import Page from "../../components/Page";
 
 class PageContainer extends Component {
   componentDidMount() {
     this.props.getForms();
+  }
+
+  handleChange() {
+    console.log('Changes will be handled here');
   }
 
   render() {
@@ -22,7 +27,15 @@ class PageContainer extends Component {
           this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] ) ?
           (<p>Error loading forms</p>)
         :
-          <Page pageConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] || {}} />
+          <div>
+            <Sidebar
+              handleSave={() => this.props.saveConfig()}
+            />
+            <Page
+              pageConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] || {}}
+              handleChange={e => this.handleChange(e)}
+            />
+          </div>
     );
   }
 }
@@ -38,7 +51,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getForms: () => dispatch(getForms())
+    getForms: () => dispatch(getForms()),
+    saveConfig: () => dispatch(saveConfig())
   };
 };
 

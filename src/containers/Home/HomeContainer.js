@@ -5,6 +5,7 @@ import { getForms } from "../../redux/modules/formConfig";
 import Home from "../../components/Home";
 
 class HomeContainer extends Component {
+  
   componentDidMount() {
     this.props.getForms();
   }

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Page = ({ pageConfig }) => {
+const Page = ({ pageConfig, handleChange }) => {
 
   return (
     (!pageConfig || pageConfig === {}) ? 
@@ -36,6 +36,7 @@ const Page = ({ pageConfig }) => {
               id='ex_w8-1-1-full_name'
               key={index}
               value={field.defaultValue}
+              onChange={e => handleChange(e)}
               style={{
                 position: 'absolute',
                 top: field.top,

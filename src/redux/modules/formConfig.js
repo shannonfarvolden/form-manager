@@ -1,17 +1,21 @@
+import fileHelper from './helpers/helper-file';
+
 // Actions
 
-const GET_CONFIG_BEGIN = 'GET_CONFIG_BEGIN'
-const GET_CONFIG_SUCCESS = 'GET_CONFIG_SUCCESS'
-const CONFIG_ERROR = 'CONFIG_ERROR'
+const GET_CONFIG_BEGIN = 'GET_CONFIG_BEGIN';
+const GET_CONFIG_SUCCESS = 'GET_CONFIG_SUCCESS';
+const SAVE_CONFIG = 'SAVE_CONFIG';
+const RESET_CONFIG = 'RESET_CONFIG';
+const CONFIG_ERROR = 'CONFIG_ERROR';
 
 export const getForms = () => {
   return dispatch => {
     try {
-      dispatch(getFormsBegin())
-      dispatch(getFormsSuccess())
+      dispatch(getFormsBegin());
+      dispatch(getFormsSuccess());
     } catch(error) {
-      console.log('error', error)
-      dispatch(configError(error))
+      console.log('error', error);
+      dispatch(configError(error));
     }
   }
 }
@@ -23,42 +27,19 @@ const getFormsBegin = () => ({
 const getFormsSuccess = () => ({
   type: GET_CONFIG_SUCCESS,
   currentPageId: 'ex_w8-1-1',
-  forms : {
-    'ex_w8': {
-      '1': {
-        '1': {
-          full_name: {
-            defaultValue: 'John Doe',
-            top: '310px',
-            left: '80px',
-            width: '200px',
-            height: '13px'
-          },
-          citizenship: {
-            defaultValue: 'CAN',
-            top: '310px',
-            left: '500px',
-            width: '100px',
-            height: '13px'
-          },
-          addr: {
-            defaultValue: 'Main st',
-            top: '340px',
-            left: '80px',
-            width: '500px',
-            height: '13px'
-          },
-          city: {
-            defaultValue: 'Vancouver',
-            top: '372px',
-            left: '80px',
-            width: '300px',
-            height: '13px'
-          }     
-        }
-      } 
-    }
+  forms: fileHelper.resetConfig()
+})
+
+export const saveConfig = () => {
+  return {
+    type: SAVE_CONFIG,
+    message: 'Config saved'
   }
+} 
+
+export const resetConfig = () => ({
+  type: RESET_CONFIG,
+  forms: fileHelper.getResetConfig
 })
 
 const configError = (error) => ({
@@ -91,6 +72,12 @@ export const configReducer = (state = initialState, action) => {
         forms: action.forms,
         isLoading: false
         }
+    case 'SAVE_CONFIG':
+      fileHelper.saveConfigTest({ forms: state.forms });
+      return {
+        ...state,
+        message: action.message
+      }
     case 'CONFIG_ERROR':
       return {
         ...state,

@@ -6,7 +6,6 @@ import HomeContainer from "./containers/Home";
 import PageContainer from "./containers/Page";
 import Form from "./components/Form";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
 import "./App.css";
 
 import store from "./redux/store";
@@ -19,7 +18,6 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <main>
-              <Sidebar />
               <Switch>
                 <Route path="/" exact component={HomeContainer} />
                 <Route path="/form" exact component={Form} />
