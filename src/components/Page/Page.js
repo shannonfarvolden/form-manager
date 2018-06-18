@@ -27,13 +27,14 @@ const Page = ({ pageConfig }) => {
           width: '800px'
         }}
       >
-      {Object.keys(pageConfig).map(name => {
+      {Object.keys(pageConfig).map((name, index) => {
         const field = pageConfig[name];
         return (
           <input
               type='text'
               name={name}
               id='ex_w8-1-1-full_name'
+              key={index}
               value={field.defaultValue}
               style={{
                 position: 'absolute',
