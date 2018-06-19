@@ -24,38 +24,31 @@ const styles = {
   }
 };
 
-const Navbar = (props) => {
+const Navbar = props => {
   const { classes } = props;
   return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-            />
-            <Button className='link' color="inherit">
-              <Link to="/">Home</Link>
-            </Button>
-            <Button className='link' color="inherit">
-              <Link to="/form">Forms</Link>
-            </Button>
-            <Button className='link' color="inherit">
-              <Link to="/page">Pages</Link>
-            </Button>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
-              Broadridge
-            </Typography>
-          </Toolbar>
-        </AppBar>       
-      </div>
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
+        <Toolbar>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+          />
+          <Button className="link" color="inherit">
+            <Link to="/">Home</Link>
+          </Button>
+          <Button className="link" color="inherit">
+            <Link to="/form">Forms</Link>
+          </Button>
+          <Button className="link" color="inherit">
+            <Link to="/page">Pages</Link>
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
-}
+};
 
 Navbar.propTypes = {
   classes: PropTypes.object.isRequired

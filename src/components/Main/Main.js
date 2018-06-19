@@ -1,15 +1,15 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import HomeContainer from "../../containers/Home";
-import PageContainer from "../../containers/Page";
+import Home from "../Home";
 import Form from "../Form";
+import PageContainer from "../../containers/Page";
 
 const Main = () => {
   return (
     <main>
       <Switch>
-        <Route path="/" exact component={HomeContainer} />
+        <Route path="/" exact component={Home} />
         <Route path="/form" exact component={Form} />
         <Route path="/page" exact component={PageContainer} />
       </Switch>

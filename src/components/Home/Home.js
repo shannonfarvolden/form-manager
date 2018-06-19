@@ -2,14 +2,13 @@ import React from "react";
 import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 
-const Home = ({ config }) => {
+const Home = () => {
   return (
     <div className="Home">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Broadridge Inform Config</h1>
+        <h1 className="App-title">Inform Config</h1>
       </header>
-      <p>Best team ever!</p>
     </div>
   );
 };
