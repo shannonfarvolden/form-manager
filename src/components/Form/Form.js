@@ -1,9 +1,10 @@
 import React from "react";
+import ConfigButton from "../ConfigButton";
 
 const Form = () => {
   return (
     <div>
-      <p>Replace by Page and will be deleted later</p>
+      <ConfigButton />
     </div>
   );
 };

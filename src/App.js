@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import HomeContainer from "./containers/Home";
-import PageContainer from "./containers/Page";
-import Form from "./components/Form";
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Main from "./components/Main";
 import "./App.css";
 
 import store from "./redux/store";
@@ -17,13 +14,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <main>
-              <Switch>
-                <Route path="/" exact component={HomeContainer} />
-                <Route path="/form" exact component={Form} />
-                <Route path="/page" exact component={PageContainer} />
-              </Switch>
-            </main>
+            <Main />
           </div>
         </Router>
       </Provider>
