@@ -4,9 +4,20 @@ import { formJson } from './helper-data'
 const fileHelper = {
 
   saveConfigTest: (dataObj) => {
-    const path = 'c:/test.json';
+
+    const btnElement = document.getElementById("saveButton");
+    
     const data = JSON.stringify(dataObj);
-    console.log('will save in '+path, data);
+    
+    const fileName = 'config.json';
+    
+    let blob = new Blob([JSON.stringify(dataObj, 0,2)], {type : 'text/json;charset=utf-8'});
+    
+    btnElement.href = URL.createObjectURL(blob);
+    
+    btnElement.download = fileName
+    // return link
+    // console.log('will save in '+fileName, data);
   },
 
   saveConfig: (dataObj) => {

@@ -32,7 +32,7 @@ const Sidebar = ({handleSave}) => {
             anchor="right"
             variant="permanent">
             <div style={informBtn}>
-              <Button variant="raised" color="primary" onClick={handleSave}>Save</Button>
+              <Button variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
             </div>
             <div>
               <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
