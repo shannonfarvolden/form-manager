@@ -7,12 +7,9 @@ import AddIcon from "@material-ui/icons/Add";
 
 import ConfigDialog from "../ConfigDialog";
 
-const configOptions = ["mandatory", "disabled", "populate", "newForm"];
-
 class ConfigButton extends React.Component {
   state = {
-    open: false,
-    selectedValue: configOptions[0]
+    open: false
   };
 
   handleClickOpen = () => {
@@ -22,16 +19,12 @@ class ConfigButton extends React.Component {
   };
 
   handleClose = value => {
-    this.setState({ selectedValue: value, open: false });
+    this.setState({ open: false });
   };
 
   render() {
     return (
       <div>
-        <Tooltip id="tooltip-fab" title={this.state.selectedValue}>
-          <p>Field Example</p>
-        </Tooltip>
-        <br />
         <Tooltip id="tooltip-fab" title="Add New Config">
           <Button
             variant="fab"
