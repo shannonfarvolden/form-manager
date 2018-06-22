@@ -20,7 +20,7 @@ const styles = {
     marginRight: 20
   },
   link: {
-    marginLeft: "10px"
+    textDecoration: "none"
   }
 };
 
@@ -36,21 +36,21 @@ const Navbar = props => {
             aria-label="Menu"
           />
 
-          <Link to="/">
-            <Button className="link" color="inherit">
-              Home
+          <Link className={classes.link} to="/">
+            <Button className={classes.menuButton} color="primary">
+              <Typography>Home</Typography>
             </Button>
           </Link>
 
-          <Link to="/form">
-            <Button className="link" color="inherit">
-              Forms
+          <Link className={classes.link} to="/form">
+            <Button className={classes.menuButton} color="primary">
+              <Typography>Forms</Typography>
             </Button>
           </Link>
-          
-          <Link to="/page">
-            <Button className="link" color="inherit">
-              Pages
+
+          <Link className={classes.link} to="/page">
+            <Button className={classes.menuButton} color="primary">
+              <Typography>Pages</Typography>
             </Button>
           </Link>
         </Toolbar>
