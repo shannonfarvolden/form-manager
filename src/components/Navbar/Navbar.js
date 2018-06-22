@@ -35,15 +35,24 @@ const Navbar = props => {
             color="inherit"
             aria-label="Menu"
           />
-          <Button className="link" color="inherit">
-            <Link to="/">Home</Link>
-          </Button>
-          <Button className="link" color="inherit">
-            <Link to="/form">Forms</Link>
-          </Button>
-          <Button className="link" color="inherit">
-            <Link to="/page">Pages</Link>
-          </Button>
+
+          <Link to="/">
+            <Button className="link" color="inherit">
+              Home
+            </Button>
+          </Link>
+
+          <Link to="/form">
+            <Button className="link" color="inherit">
+              Forms
+            </Button>
+          </Link>
+          
+          <Link to="/page">
+            <Button className="link" color="inherit">
+              Pages
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
