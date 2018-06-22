@@ -1,11 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+
+import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/Dialog";
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+import { withStyles } from "@material-ui/core/styles";
+// import List from "@material-ui/core/List";
+// import ListItem from "@material-ui/core/ListItem";
+// import ListItemText from "@material-ui/core/ListItemText";
 import blue from "@material-ui/core/colors/blue";
 
 import SelectConfig from "../SelectConfig";
@@ -42,8 +45,9 @@ const configOptions = [
 }));
 
 class ConfigDialog extends React.Component {
-  handleClose = () => {
-    this.props.onClose(this.props.selectedValue);
+
+  constructor(props) {
+    super(props);
   };
 
   handleListItemClick = value => {
@@ -51,16 +55,26 @@ class ConfigDialog extends React.Component {
   };
 
   render() {
-    const { classes, onClose, selectedValue, ...other } = this.props;
+
+    let newField = this.props.fieldId ? this.props.field[this.props.fieldId] : null;
+    console.log('newField', newField)
+
+    // fieldId={selectedFieldId}
+    // field={pageConfig[selectedFieldId]}
+    // open={!!selectedFieldId}
+    // dialogCancel={() => dialogCancel()}
+    // dialogConfirm={() => dialogConfirm(newField)}
 
     return (
+      !this.props.fieldId ?
+      <p>Loading</p>
+      :
       <Dialog
         fullWidth
-        onClose={this.handleClose}
         aria-labelledby="simple-dialog-title"
-        {...other}
+        open={!!this.props.fieldId} 
       >
-        <DialogTitle id="simple-dialog-title">Add Config To Field</DialogTitle>
+        <DialogTitle id="simple-dialog-title">Add Config To Field {this.props.fieldId ? this.props.fieldId : ''}</DialogTitle>
         <div>
           <SelectConfig
             fields={configOptions}
@@ -84,15 +98,17 @@ class ConfigDialog extends React.Component {
             ))}
           </List> */}
         </div>
+        <DialogActions>
+          <Button onClick={() => this.props.dialogCancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={(newField) => this.props.dialogConfirm(newField)} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
       </Dialog>
     );
   }
 }
-
-ConfigDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onClose: PropTypes.func,
-  selectedValue: PropTypes.string
-};
 
 export default withStyles(styles)(ConfigDialog);

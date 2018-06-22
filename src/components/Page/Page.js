@@ -1,6 +1,14 @@
 import React from "react";
 
-const Page = ({ pageConfig, handleChange }) => {
+import ConfigDialog from '../ConfigDialog'
+
+const Page = ({ pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogConfirm }) => {
+
+  const newField = {...pageConfig}
+
+  const handleChange = (e) => {
+    console.log('handling locally', e)
+  }
 
   return (
     (!pageConfig || pageConfig === {}) ? 
@@ -27,16 +35,17 @@ const Page = ({ pageConfig, handleChange }) => {
           width: '800px'
         }}
       >
-      {Object.keys(pageConfig).map((name, index) => {
-        const field = pageConfig[name];
+      {Object.keys(pageConfig).map((fieldId, index) => {
+        const field = pageConfig[fieldId];
         return (
           <input
               type='text'
-              name={name}
-              id='ex_w8-1-1-full_name'
+              name={fieldId}
+              id={`${'ex_w8'}-${'1'}}-${'1'}-${fieldId}`}
               key={index}
               value={field.defaultValue}
-              onChange={e => handleChange(e)}
+              onChange={e => this.handleChange(e)}
+              onClick={() => dialogOpen(fieldId)}
               style={{
                 position: 'absolute',
                 top: field.top,
@@ -49,6 +58,13 @@ const Page = ({ pageConfig, handleChange }) => {
       })
       }
       </div>
+      <ConfigDialog
+          fieldId={selectedFieldId}
+          field={pageConfig[selectedFieldId]}
+          open={!!selectedFieldId}
+          dialogCancel={() => dialogCancel()}
+          dialogConfirm={() => dialogConfirm(newField)}
+        />
     </div>)
   );
 };

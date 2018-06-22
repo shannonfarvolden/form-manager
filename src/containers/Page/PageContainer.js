@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getForms, saveConfig } from "../../redux/modules/formConfig";
+import {dialogOpen, dialogCancel, dialogConfirm, getForms, saveConfig } from "../../redux/modules/formConfig";
 
 import Sidebar from "../../components/Sidebar";
 import Page from "../../components/Page";
@@ -12,6 +12,10 @@ class PageContainer extends Component {
 
   handleChange() {
     console.log('Changes will be handled here');
+  }
+
+  dialogHandleOpen() {
+    console.log('dialogHandleOpen will be handled here');
   }
 
   render() {
@@ -34,6 +38,10 @@ class PageContainer extends Component {
             <Page
               pageConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] || {}}
               handleChange={e => this.handleChange(e)}
+              selectedFieldId={this.props.selectedFieldId}
+              dialogOpen={(fieldId) => this.props.dialogOpen(fieldId)}
+              dialogCancel={() => this.props.dialogCancel()}
+              dialogConfirm={(newField) => this.props.dialogConfirm(newField)}
             />
           </div>
     );
@@ -45,14 +53,18 @@ const mapStateToProps = state => {
     currentPageId: state.formConfig.currentPageId,
     forms: state.formConfig.forms,
     errors: state.formConfig.errors,
-    isLoading: state.formConfig.isLoading
+    isLoading: state.formConfig.isLoading,
+    selectedFieldId: state.formConfig.selectedFieldId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getForms: () => dispatch(getForms()),
-    saveConfig: () => dispatch(saveConfig())
+    saveConfig: () => dispatch(saveConfig()),
+    dialogOpen: (id) => dispatch(dialogOpen(id)),
+    dialogCancel: () => dispatch(dialogCancel()),
+    dialogConfirm: (newField) => dispatch(dialogConfirm(newField))
   };
 };
 
