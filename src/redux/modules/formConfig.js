@@ -2,6 +2,9 @@ import fileHelper from './helpers/helper-file';
 
 // Actions
 
+const DIALOG_OPEN = 'DIALOG_OPEN';
+const DIALOG_CANCEL = 'DIALOG_CANCEL';
+const DIALOG_CONFIRM = 'DIALOG_CONFIRM';
 const GET_CONFIG_BEGIN = 'GET_CONFIG_BEGIN';
 const GET_CONFIG_SUCCESS = 'GET_CONFIG_SUCCESS';
 const SAVE_CONFIG = 'SAVE_CONFIG';
@@ -19,6 +22,20 @@ export const getForms = () => {
     }
   }
 }
+
+export const dialogOpen = (selectedFieldId) => ({
+  type: DIALOG_OPEN,
+  selectedFieldId
+})
+
+export const dialogCancel = () => ({
+  type: DIALOG_CANCEL
+})
+
+export const dialogConfirm = (newField) => ({
+  type: DIALOG_CONFIRM,
+  newField
+})
 
 const getFormsBegin = () => ({
   type: GET_CONFIG_BEGIN
@@ -51,6 +68,7 @@ const configError = (error) => ({
 
 const initialState = {
   currentPageId: '',
+  selectedFieldId: null,
   forms: {},
   config: {},
   error: null,
@@ -59,6 +77,25 @@ const initialState = {
 
 export const configReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'DIALOG_OPEN':
+    return {
+      ...state,
+      selectedFieldId: action.selectedFieldId
+      }
+      case 'DIALOG_CANCEL':
+      return {
+        ...state,
+        selectedFieldId: null
+        }
+      case 'DIALOG_CONFIRM':
+      const idArr = state.currentPageId.split('-');
+      const newForms = {...state.forms};
+      newForms[idArr[0]][idArr[1]][idArr[2]][state.selectedFieldId] = action.newField;
+      return {
+        ...state,
+        forms: newForms,
+        selectedFieldId: null
+        }
     case 'GET_CONFIG_BEGIN':
     return {
       ...state,

@@ -1,11 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+
+import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/Dialog";
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+import { withStyles } from "@material-ui/core/styles";
+// import List from "@material-ui/core/List";
+// import ListItem from "@material-ui/core/ListItem";
+// import ListItemText from "@material-ui/core/ListItemText";
 import blue from "@material-ui/core/colors/blue";
 
 import SelectConfig from "../SelectConfig";
@@ -17,50 +20,47 @@ const styles = {
   }
 };
 
-const fields = [
-  { label: "Field 1" },
-  { label: "Field 2" },
-  { label: "Field 3" },
-  { label: "Field 4" },
-  { label: "Field 5" },
-  { label: "Field 6" },
-  { label: "Field 7" },
-  { label: "Field 8" }
-].map(field => ({
-  value: field.label,
-  label: field.label
-}));
-const configOptions = [
-  { label: "mandatory" },
-  { label: "disabled" },
-  { label: "populate" },
-  { label: "mask" },
-  { label: "newForm" }
-].map(field => ({
-  value: field.label,
-  label: field.label
-}));
 
-class ConfigDialog extends React.Component {
-  handleClose = () => {
-    this.props.onClose(this.props.selectedValue);
-  };
+const ConfigDialog = ({fieldId, field, dialogCancel, dialogConfirm}) => {
 
-  handleListItemClick = value => {
-    this.props.onClose(value);
-  };
+  const fields = [
+    { label: "Field 1" },
+    { label: "Field 2" },
+    { label: "Field 3" },
+    { label: "Field 4" },
+    { label: "Field 5" },
+    { label: "Field 6" },
+    { label: "Field 7" },
+    { label: "Field 8" }
+  ].map(field => ({
+    value: field.label,
+    label: field.label
+  }));
+  const configOptions = [
+    { label: "mandatory" },
+    { label: "disabled" },
+    { label: "populate" },
+    { label: "mask" },
+    { label: "newForm" }
+  ].map(field => ({
+    value: field.label,
+    label: field.label
+  }));
 
-  render() {
-    const { classes, onClose, selectedValue, ...other } = this.props;
+  const newField = {...field}
 
-    return (
+  const handleConfirm = () => {
+    dialogCancel(newField)
+  }
+
+  return (
+    
       <Dialog
         fullWidth
-        onClose={this.handleClose}
         aria-labelledby="simple-dialog-title"
-        {...other}
+        open={!!fieldId} 
       >
-        <DialogTitle id="simple-dialog-title">Add Config To Field</DialogTitle>
+        <DialogTitle id="simple-dialog-title">Add Config To Field {fieldId ? fieldId : ''}</DialogTitle>
         <div>
           <SelectConfig
             fields={configOptions}
@@ -84,15 +84,17 @@ class ConfigDialog extends React.Component {
             ))}
           </List> */}
         </div>
+        <DialogActions>
+          <Button onClick={dialogCancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirm} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
       </Dialog>
     );
-  }
-}
 
-ConfigDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onClose: PropTypes.func,
-  selectedValue: PropTypes.string
-};
+}
 
 export default withStyles(styles)(ConfigDialog);
