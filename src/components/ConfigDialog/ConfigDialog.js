@@ -20,61 +20,47 @@ const styles = {
   }
 };
 
-const fields = [
-  { label: "Field 1" },
-  { label: "Field 2" },
-  { label: "Field 3" },
-  { label: "Field 4" },
-  { label: "Field 5" },
-  { label: "Field 6" },
-  { label: "Field 7" },
-  { label: "Field 8" }
-].map(field => ({
-  value: field.label,
-  label: field.label
-}));
-const configOptions = [
-  { label: "mandatory" },
-  { label: "disabled" },
-  { label: "populate" },
-  { label: "mask" },
-  { label: "newForm" }
-].map(field => ({
-  value: field.label,
-  label: field.label
-}));
 
-class ConfigDialog extends React.Component {
+const ConfigDialog = ({fieldId, field, dialogCancel, dialogConfirm}) => {
 
-  constructor(props) {
-    super(props);
-  };
+  const fields = [
+    { label: "Field 1" },
+    { label: "Field 2" },
+    { label: "Field 3" },
+    { label: "Field 4" },
+    { label: "Field 5" },
+    { label: "Field 6" },
+    { label: "Field 7" },
+    { label: "Field 8" }
+  ].map(field => ({
+    value: field.label,
+    label: field.label
+  }));
+  const configOptions = [
+    { label: "mandatory" },
+    { label: "disabled" },
+    { label: "populate" },
+    { label: "mask" },
+    { label: "newForm" }
+  ].map(field => ({
+    value: field.label,
+    label: field.label
+  }));
 
-  handleListItemClick = value => {
-    this.props.onClose(value);
-  };
+  const newField = {...field}
 
-  render() {
+  const handleConfirm = () => {
+    dialogCancel(newField)
+  }
 
-    let newField = this.props.fieldId ? this.props.field[this.props.fieldId] : null;
-    console.log('newField', newField)
-
-    // fieldId={selectedFieldId}
-    // field={pageConfig[selectedFieldId]}
-    // open={!!selectedFieldId}
-    // dialogCancel={() => dialogCancel()}
-    // dialogConfirm={() => dialogConfirm(newField)}
-
-    return (
-      !this.props.fieldId ?
-      <p>Loading</p>
-      :
+  return (
+    
       <Dialog
         fullWidth
         aria-labelledby="simple-dialog-title"
-        open={!!this.props.fieldId} 
+        open={!!fieldId} 
       >
-        <DialogTitle id="simple-dialog-title">Add Config To Field {this.props.fieldId ? this.props.fieldId : ''}</DialogTitle>
+        <DialogTitle id="simple-dialog-title">Add Config To Field {fieldId ? fieldId : ''}</DialogTitle>
         <div>
           <SelectConfig
             fields={configOptions}
@@ -99,16 +85,16 @@ class ConfigDialog extends React.Component {
           </List> */}
         </div>
         <DialogActions>
-          <Button onClick={() => this.props.dialogCancel} color="primary">
+          <Button onClick={dialogCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={(newField) => this.props.dialogConfirm(newField)} color="primary">
+          <Button onClick={handleConfirm} color="primary">
             Confirm
           </Button>
         </DialogActions>
       </Dialog>
     );
-  }
+
 }
 
 export default withStyles(styles)(ConfigDialog);

@@ -58,6 +58,7 @@ const Page = ({ pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogCon
       })
       }
       </div>
+      selectedFieldId &&
       <ConfigDialog
           fieldId={selectedFieldId}
           field={pageConfig[selectedFieldId]}
