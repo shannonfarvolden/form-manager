@@ -1,5 +1,9 @@
 export const formJson =  {
   "ex_w8": {
+    "header": {
+      "width": "800px",
+      "bgImage": "ex_w8_1.png"
+    },
     "1": {
       "1": {
         "full_name": {

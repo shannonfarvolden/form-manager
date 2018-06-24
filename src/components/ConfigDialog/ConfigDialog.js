@@ -67,11 +67,13 @@ const ConfigDialog = ({fieldId, field, dialogCancel, dialogConfirm}) => {
             placeholder="Config"
             title="Config type"
           />
+          {/*}
           <SelectConfig
             fields={fields}
             placeholder="Select Field(s)"
             title="On Field"
           />
+          */}
           {/* <List>
             {configOptions.map(config => (
               <ListItem

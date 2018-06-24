@@ -36,6 +36,8 @@ class PageContainer extends Component {
               handleSave={() => this.props.saveConfig()}
             />
             <Page
+              formHeaderConfig={this.props.forms[currentPageArr[0]].header || {}}
+              copyHeaderConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]].header || {}}
               pageConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] || {}}
               handleChange={e => this.handleChange(e)}
               selectedFieldId={this.props.selectedFieldId}
