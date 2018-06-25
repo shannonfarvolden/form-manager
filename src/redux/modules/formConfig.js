@@ -32,10 +32,13 @@ export const dialogCancel = () => ({
   type: DIALOG_CANCEL
 })
 
-export const dialogConfirm = (newField) => ({
-  type: DIALOG_CONFIRM,
-  newField
-})
+export const dialogConfirm = (newField) => {
+  console.log('in redux, newField=', newField)
+  return {
+    type: DIALOG_CONFIRM,
+    newField
+  }
+}
 
 const getFormsBegin = () => ({
   type: GET_CONFIG_BEGIN
@@ -88,6 +91,7 @@ export const configReducer = (state = initialState, action) => {
         selectedFieldId: null
         }
       case 'DIALOG_CONFIRM':
+      debugger
       const idArr = state.currentPageId.split('-');
       const newForms = {...state.forms};
       newForms[idArr[0]][idArr[1]][idArr[2]][state.selectedFieldId] = action.newField;

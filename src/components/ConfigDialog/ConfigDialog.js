@@ -4,14 +4,19 @@ import Button from '@material-ui/core/Button';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogTitle";
 
-import { withStyles } from "@material-ui/core/styles";
 // import List from "@material-ui/core/List";
 // import ListItem from "@material-ui/core/ListItem";
 // import ListItemText from "@material-ui/core/ListItemText";
+import SelectConfig from "../SelectConfig";
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+
+import { withStyles } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
 
-import SelectConfig from "../SelectConfig";
+
 
 const styles = {
   avatar: {
@@ -20,83 +25,135 @@ const styles = {
   }
 };
 
+//const ConfigDialog = ({fieldId, field, dialogCancel, dialogConfirm}) => {
 
-const ConfigDialog = ({fieldId, field, dialogCancel, dialogConfirm}) => {
 
-  const fields = [
-    { label: "Field 1" },
-    { label: "Field 2" },
-    { label: "Field 3" },
-    { label: "Field 4" },
-    { label: "Field 5" },
-    { label: "Field 6" },
-    { label: "Field 7" },
-    { label: "Field 8" }
-  ].map(field => ({
-    value: field.label,
-    label: field.label
-  }));
-  const configOptions = [
-    { label: "mandatory" },
-    { label: "disabled" },
-    { label: "populate" },
-    { label: "mask" },
-    { label: "newForm" }
-  ].map(field => ({
-    value: field.label,
-    label: field.label
-  }));
+class ConfigDialog extends React.Component {
 
-  const newField = {...field}
+  constructor(props) {
+    super(props);
 
-  const handleConfirm = () => {
-    dialogCancel(newField)
+    this.state = {
+      newField: {},
+      configOptions: []
+    };
   }
 
-  return (
-    
-      <Dialog
-        fullWidth
-        aria-labelledby="simple-dialog-title"
-        open={!!fieldId} 
-      >
-        <DialogTitle id="simple-dialog-title">Add Config To Field {fieldId ? fieldId : ''}</DialogTitle>
-        <div>
-          <SelectConfig
-            fields={configOptions}
-            placeholder="Config"
-            title="Config type"
-          />
-          {/*}
-          <SelectConfig
-            fields={fields}
-            placeholder="Select Field(s)"
-            title="On Field"
-          />
-          */}
-          {/* <List>
-            {configOptions.map(config => (
-              <ListItem
-                button
-                onClick={() => this.handleListItemClick(config)}
-                key={config}
-              >
-                <ListItemText primary={config} />
-              </ListItem>
-            ))}
-          </List> */}
-        </div>
-        <DialogActions>
-          <Button onClick={dialogCancel} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleConfirm} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
+  componentDidMount() {
 
+    // Define all possible configs for a field
+    const configOptionsValue = [
+      // Presentation
+      { key: "top", editable: false, active: true, value: '' },
+      { key: "left", editable: false, active: true, value: '' },
+      { key: "width", editable: false, active: true, value: '' },
+      { key: "height", editable: false, active: true, value: '' },
+      { key: "type", editable: false, active: true, value: '' },
+      // Curretly editable
+      { key: "mandatory", editable: true, active: true, value: '' },
+      { key: "disabled", editable: true, active: true, value: '' },
+      { key: "defaultValue", editable: true, active: true, value: '' },
+      // Future editable 
+      { key: "populate", editable: false, active: false, value: '' },
+      { key: "mask", editable: false, active: false },
+      { key: "newForm", editable: false, active: false, value: '' }
+    ]
+    
+    // Define the, for now temporary, new configs that will be updated if pressed 'Confirm'
+    console.log('nf=',this.state.newField)
+    let fieldValue = {};
+    configOptionsValue.forEach(item => {
+      if (item.active) fieldValue[item.key] = this.props.field[item.key] || null;
+    })
+    this.setState({
+      newField: fieldValue,
+      configOptions: configOptionsValue
+    })
+  }
+
+  handleConfirm = event => {
+    event.preventDefault();
+    let fieldValue = {...this.state.newField}
+    Object.keys(fieldValue).forEach(key => {
+      if (!fieldValue[key]) delete fieldValue[key]
+    });
+    this.props.dialogConfirm(fieldValue)
+  };
+
+  handleFieldChange = name => e => {
+    let newFieldValue = this.state.newField;
+    newFieldValue[name] = !this.state.newField[name]
+    this.setState({newField: newFieldValue});
+  }
+
+  render = () => { 
+
+  return (
+
+    <Dialog
+      fullWidth
+      aria-labelledby="simple-dialog-title"
+      open={!!this.props.fieldId} 
+    >
+      <DialogTitle id="simple-dialog-title">Add Config To Field {this.props.fieldId ? this.props.fieldId : ''} from page </DialogTitle>
+      <DialogContent>
+        <SelectConfig
+          fields={
+            this.state.configOptions
+              .filter(item => item.editable)
+              .map(item => ({
+                value: item.key,
+                label: item.key
+              }))
+          }
+          placeholder="Config"
+          title="Config type"
+        />
+        {/*<List>
+          {Object.keys(this.state.newField)
+            .filter(key => this.state.newField[key] !== '')
+            .map(key => (
+            <ListItem
+              button
+              key={key}
+            >
+              <ListItemText primary={`${key} = ${this.state.newField[key]}`}/>
+            </ListItem>
+          ))}
+        </List>
+        */}
+        <FormControlLabel
+            control={
+              <Checkbox
+                checked={!!this.state.newField.disabled}
+                onChange={this.handleFieldChange('disabled')}
+                value={'disabled'}
+              />
+            }
+            label="Disabled"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={!!this.state.newField.mandatory}
+                onChange={this.handleFieldChange('mandatory')}
+                value={'mandatory'}
+              />
+            }
+            label="Mandatory"
+          />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.props.dialogCancel} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleConfirm} color="primary">
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+  }
 }
 
 export default withStyles(styles)(ConfigDialog);

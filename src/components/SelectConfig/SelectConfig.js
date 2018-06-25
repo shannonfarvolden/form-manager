@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Input from "@material-ui/core/Input";
+//import Input from "@material-ui/core/Input";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -13,6 +13,8 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ClearIcon from "@material-ui/icons/Clear";
 import Chip from "@material-ui/core/Chip";
 import Select from "react-select";
+import Tooltip from '@material-ui/core/Tooltip';
+
 import "react-select/dist/react-select.css";
 
 class Option extends React.Component {
@@ -47,16 +49,30 @@ function SelectWrapped(props) {
       optionComponent={Option}
       noResultsText={<Typography>{"No results found"}</Typography>}
       arrowRenderer={arrowProps => {
-        return arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
+      return (
+        <Tooltip id="tooltip-top-end" title="Select config to add to this field" placement="top-end">
+          {arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+        </Tooltip>);
       }}
-      clearRenderer={() => <ClearIcon />}
+      clearRenderer={() => (
+        <Tooltip id="tooltip-top-end" title="Remove all configs from this field" placement="top-end">
+          <ClearIcon />
+        </Tooltip>
+      )}
       valueComponent={valueProps => {
         const { value, children, onRemove } = valueProps;
 
-        const onDelete = event => {
+        const handleDelete = event => {
+          console.log('will remove '+ value)
           event.preventDefault();
           event.stopPropagation();
           onRemove(value);
+        };
+
+        const handleClick = event => {
+          console.log('will select this config');
+          event.preventDefault();
+          event.stopPropagation();
         };
 
         if (onRemove) {
@@ -65,8 +81,13 @@ function SelectWrapped(props) {
               tabIndex={-1}
               label={children}
               className={classes.chip}
-              deleteIcon={<CancelIcon onTouchEnd={onDelete} />}
-              onDelete={onDelete}
+              deleteIcon={(
+                <Tooltip id="tooltip-top-end" title="Remove this config" placement="top-end">
+                  <CancelIcon onTouchEnd={handleDelete} />
+                </Tooltip>
+              )}
+              onClick={handleClick}
+              onDelete={handleDelete}
             />
           );
         }
