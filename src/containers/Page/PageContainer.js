@@ -14,6 +14,11 @@ class PageContainer extends Component {
     console.log('Changes will be handled here');
   }
 
+  handleDialogConfirm(newField) {
+    console.log('in container, newField=', newField)
+    this.props.dialogConfirm(newField)
+  }
+
   dialogHandleOpen() {
     console.log('dialogHandleOpen will be handled here');
   }
@@ -43,7 +48,7 @@ class PageContainer extends Component {
               selectedFieldId={this.props.selectedFieldId}
               dialogOpen={(fieldId) => this.props.dialogOpen(fieldId)}
               dialogCancel={() => this.props.dialogCancel()}
-              dialogConfirm={(newField) => this.props.dialogConfirm(newField)}
+              dialogConfirm={(newField) => this.handleDialogConfirm(newField)}
             />
           </div>
     );
