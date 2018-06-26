@@ -45,13 +45,19 @@ function SelectWrapped(props) {
   const { classes, ...other } = props;
 
   return (
+
     <Select
       optionComponent={Option}
       noResultsText={<Typography>{"No results found"}</Typography>}
       arrowRenderer={arrowProps => {
       return (
         <Tooltip id="tooltip-top-end" title="Select config to add to this field" placement="top-end">
-          {arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          {arrowProps.isOpen ? 
+            <ArrowDropUpIcon
+            />
+          :
+            <ArrowDropDownIcon
+            />}
         </Tooltip>);
       }}
       clearRenderer={() => (
@@ -69,8 +75,8 @@ function SelectWrapped(props) {
           onRemove(value);
         };
 
-        const handleClick = event => {
-          console.log('will select this config');
+        const handleAdd = event => {
+          console.log('will add this config');
           event.preventDefault();
           event.stopPropagation();
         };
@@ -86,7 +92,7 @@ function SelectWrapped(props) {
                   <CancelIcon onTouchEnd={handleDelete} />
                 </Tooltip>
               )}
-              onClick={handleClick}
+              onClick={handleAdd}
               onDelete={handleDelete}
             />
           );
