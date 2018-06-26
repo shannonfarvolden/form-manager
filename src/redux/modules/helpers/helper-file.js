@@ -28,6 +28,20 @@ const fileHelper = {
   resetConfig: () => {
     console.log(formJson)
     return formJson
+  },
+
+  testConfig: (dataObj) => {
+    let data = dataObj.forms.ex_w8[1][1]
+    for (let key in data) {
+      
+      let items = data[key];
+      
+      for(let k in items) {
+        if(k == 'mandatory') {
+          console.log(k, key)
+        }
+      }
+    }
   }
 }
 
