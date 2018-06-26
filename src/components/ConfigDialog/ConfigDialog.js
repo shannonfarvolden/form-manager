@@ -6,12 +6,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogTitle";
 
-// import List from "@material-ui/core/List";
-// import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 // import ListItemText from "@material-ui/core/ListItemText";
 import SelectConfig from "../SelectConfig";
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import TextField from '@material-ui/core/TextField'
 
 import { withStyles } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
@@ -80,11 +81,23 @@ class ConfigDialog extends React.Component {
     this.props.dialogConfirm(fieldValue)
   };
 
-  handleFieldChange = name => e => {
+  handleFieldCheck = name => event => {
     let newFieldValue = this.state.newField;
     newFieldValue[name] = !this.state.newField[name]
     this.setState({newField: newFieldValue});
   }
+
+  // handleFieldChange = name => e => {
+  //   let newFieldValue = this.state.newField;
+  //   newFieldValue[name] = !this.state.newField[name]
+  //   this.setState({newField: newFieldValue});
+  // }
+
+  handleFieldChange = name => event => {
+    let newFieldValue = this.state.newField;
+    newFieldValue[name] = event.target.value
+    this.setState({newField: newFieldValue});
+  };
 
   render = () => { 
 
@@ -96,7 +109,8 @@ class ConfigDialog extends React.Component {
       open={!!this.props.fieldId} 
     >
       <DialogTitle id="simple-dialog-title">Add Config To Field {this.props.fieldId ? this.props.fieldId : ''} from page </DialogTitle>
-      <DialogContent>
+        <DialogContent>
+      {/* 
         <SelectConfig
           fields={
             this.state.configOptions
@@ -108,7 +122,8 @@ class ConfigDialog extends React.Component {
           }
           placeholder="Config"
           title="Config type"
-        />
+        /> */}
+        <List>
         {/*<List>
           {Object.keys(this.state.newField)
             .filter(key => this.state.newField[key] !== '')
@@ -122,26 +137,40 @@ class ConfigDialog extends React.Component {
           ))}
         </List>
         */}
-        <FormControlLabel
+        <ListItem key='98'>
+          <TextField
+            id="defaultValue"
+            label="Default"
+            value={this.state.newField.defaultValue}
+            onChange={this.handleFieldChange('defaultValue')}
+            margin="normal"
+          />
+        </ListItem>
+        <ListItem key='99'>
+          <FormControlLabel
             control={
               <Checkbox
                 checked={!!this.state.newField.disabled}
-                onChange={this.handleFieldChange('disabled')}
+                onChange={this.handleFieldCheck('disabled')}
                 value={'disabled'}
               />
             }
             label="Disabled"
           />
+        </ListItem>
+        <ListItem key='100'>
           <FormControlLabel
             control={
               <Checkbox
                 checked={!!this.state.newField.mandatory}
-                onChange={this.handleFieldChange('mandatory')}
+                onChange={this.handleFieldCheck('mandatory')}
                 value={'mandatory'}
               />
             }
             label="Mandatory"
           />
+          </ListItem>
+        </List>
       </DialogContent>
       <DialogActions>
         <Button onClick={this.props.dialogCancel} color="primary">
