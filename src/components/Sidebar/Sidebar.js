@@ -11,6 +11,18 @@ const informBtn = {
   margin: "5px"
 };
 
+const sidebar = {
+
+    height: "100vh",
+    float: "right",
+    display:  "flex",
+    justifyContent: "flex-end",
+    zIndex: "1200",
+    borderLeft: "1px rgba(0,0,0,0.2) solid",
+    boxShadow: "0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)"
+
+};
+
 const Sidebar = ({handleSave}) => {
 
   /* Maybe in the future handling prev/next
@@ -27,10 +39,8 @@ const Sidebar = ({handleSave}) => {
   }
 
   return (
-        <div >
-          <Drawer
-            anchor="right"
-            variant="permanent">
+    <div style={sidebar}>
+        <div>
             <div style={informBtn}>
               <Button variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
             </div>
@@ -38,10 +48,9 @@ const Sidebar = ({handleSave}) => {
               <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
               <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
             </div>
-          </Drawer>
         </div>
+    </div>
   );
 }
 
 export default Sidebar;
-
