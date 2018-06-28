@@ -1,14 +1,9 @@
 import React from "react";
-// import PropTypes from "prop-types";
-// import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const informBtn = {
-  margin: "5px"
+  margin: "5px",
+  paddingTop: "10px"
 };
 
 const sidebar = {
