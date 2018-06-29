@@ -7,8 +7,6 @@ const fileHelper = {
 
     const btnElement = document.getElementById("saveButton");
     
-    const data = JSON.stringify(dataObj);
-    
     const fileName = 'config.json';
     
     let blob = new Blob([JSON.stringify(dataObj, 0,2)], {type : 'text/json;charset=utf-8'});
@@ -28,6 +26,21 @@ const fileHelper = {
   resetConfig: () => {
     console.log(formJson)
     return formJson
+  },
+
+  testConfig: (dataObj) => {
+    debugger
+    let data = dataObj.forms.ex_w8[1][1]
+    for (let key in data) {
+      
+      let items = data[key];
+      
+      for(let k in items) {
+        if(k == 'mandatory') {
+          console.log(k, key)
+        }
+      }
+    }
   }
 }
 

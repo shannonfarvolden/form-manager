@@ -10,6 +10,7 @@ const GET_CONFIG_SUCCESS = 'GET_CONFIG_SUCCESS';
 const SAVE_CONFIG = 'SAVE_CONFIG';
 const RESET_CONFIG = 'RESET_CONFIG';
 const CONFIG_ERROR = 'CONFIG_ERROR';
+const TEST_CONFIG = 'TEST_CONFIG';
 
 export const getForms = () => {
   return dispatch => {
@@ -60,6 +61,11 @@ export const saveConfig = () => {
 export const resetConfig = () => ({
   type: RESET_CONFIG,
   forms: fileHelper.getResetConfig
+})
+
+export const testConfig = () => ({
+  type: TEST_CONFIG,
+  message:  'Test config'
 })
 
 const configError = (error) => ({
@@ -124,6 +130,12 @@ export const configReducer = (state = initialState, action) => {
         error: action.error,
         isLoading: false
         }
+    case 'TEST_CONFIG':
+      fileHelper.testConfig({forms: state.forms});
+      return {
+        ...state,
+        message: action.message
+      }        
     default:
       return state
   }

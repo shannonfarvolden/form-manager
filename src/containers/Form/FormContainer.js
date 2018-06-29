@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {dialogOpen, dialogCancel, dialogConfirm, getForms, saveConfig } from "../../redux/modules/formConfig";
+import {dialogOpen, dialogCancel, dialogConfirm, getForms, saveConfig, testConfig } from "../../redux/modules/formConfig";
 
 import Sidebar from "../../components/Sidebar";
 import Form from "../../components/Form";
@@ -39,6 +39,7 @@ class FormContainer extends Component {
           <div>
             <Sidebar
               handleSave={() => this.props.saveConfig()}
+              handleTest={() => this.props.testConfig()}
             />
             <Form
               formHeaderConfig={this.props.forms[currentPageArr[0]].header || {}}
@@ -69,6 +70,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getForms: () => dispatch(getForms()),
     saveConfig: () => dispatch(saveConfig()),
+    testConfig: () => dispatch(testConfig()),
     dialogOpen: (id) => dispatch(dialogOpen(id)),
     dialogCancel: () => dispatch(dialogCancel()),
     dialogConfirm: (newField) => dispatch(dialogConfirm(newField))
