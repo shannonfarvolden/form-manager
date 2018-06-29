@@ -29,7 +29,6 @@ const fileHelper = {
   },
 
   testConfig: (dataObj) => {
-    debugger
     let data = dataObj.forms.ex_w8[1][1]
     for (let key in data) {
       

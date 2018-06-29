@@ -28,7 +28,7 @@ const listItems = Testlist.map((list)=>
   <li>{list}</li>
 );
 
-const Sidebar = ({handleSave, handleTest}) => {
+const Sidebar = ({handleSave,handleTest}) => {
 
   /* Maybe in the future handling prev/next
   can be a single function, pass in a page ? */
