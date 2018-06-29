@@ -24,8 +24,9 @@ const fileHelper = {
   },
 
   resetConfig: () => {
-    console.log(formJson)
-    return formJson
+    const data = {...formJson};
+    console.log('in helper config=', data)
+    return data
   },
 
   testConfig: (dataObj) => {

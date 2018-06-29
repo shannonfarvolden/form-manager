@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {dialogOpen, dialogCancel, dialogConfirm, getForms, saveConfig, testConfig } from "../../redux/modules/formConfig";
+import {dialogOpen, dialogCancel, dialogConfirm, saveConfig, loadConfig, exportConfig, testConfig, resetConfig } from "../../redux/modules/formConfig";
 
 import Sidebar from "../../components/Sidebar";
 import Form from "../../components/Form";
 
 class FormContainer extends Component {
   componentDidMount() {
-    this.props.getForms();
+    this.props.resetConfig();
   }
 
   handleChange() {
@@ -38,7 +38,10 @@ class FormContainer extends Component {
         :
           <div>
             <Sidebar
+              handleExport={() => this.props.exportConfig()}
               handleSave={() => this.props.saveConfig()}
+              handleLoad={() => this.props.loadConfig()}
+              handleReset={() => this.props.resetConfig()}
               handleTest={() => this.props.testConfig()}
             />
             <Form
@@ -68,8 +71,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getForms: () => dispatch(getForms()),
     saveConfig: () => dispatch(saveConfig()),
+    loadConfig: () => dispatch(loadConfig()),
+    exportConfig: () => dispatch(exportConfig()),
+    resetConfig: () => dispatch(resetConfig()),    
     testConfig: () => dispatch(testConfig()),
     dialogOpen: (id) => dispatch(dialogOpen(id)),
     dialogCancel: () => dispatch(dialogCancel()),
