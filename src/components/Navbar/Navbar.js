@@ -48,11 +48,7 @@ const Navbar = props => {
             </Button>
           </Link>
 
-          <Link className={classes.link} to="/page">
-            <Button className={classes.menuButton} color="primary">
-              <Typography>Pages</Typography>
-            </Button>
-          </Link>
+
         </Toolbar>
       </AppBar>
     </div>

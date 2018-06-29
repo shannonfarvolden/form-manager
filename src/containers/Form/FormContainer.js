@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import {dialogOpen, dialogCancel, dialogConfirm, getForms, saveConfig } from "../../redux/modules/formConfig";
 
 import Sidebar from "../../components/Sidebar";
-import Page from "../../components/Page";
+import Form from "../../components/Form";
 
-class PageContainer extends Component {
+class FormContainer extends Component {
   componentDidMount() {
     this.props.getForms();
   }
@@ -40,7 +40,7 @@ class PageContainer extends Component {
             <Sidebar
               handleSave={() => this.props.saveConfig()}
             />
-            <Page
+            <Form
               formHeaderConfig={this.props.forms[currentPageArr[0]].header || {}}
               copyHeaderConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]].header || {}}
               pageConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] || {}}
@@ -75,4 +75,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FormContainer);
