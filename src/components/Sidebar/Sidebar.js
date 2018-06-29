@@ -5,7 +5,8 @@ const buttonContainer = {
   display: 'flex',
   width: '200px',
   flexWrap: 'wrap',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  paddingTop: '1em'
 };
 const informBtn = {
   margin: '0.25em'
