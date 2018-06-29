@@ -4,10 +4,11 @@
 
 .App-logo {
   height: 80px;
+  filter: brightness(100);
 }
 
 .App-header {
-  background-color: teal;
+  background-color: #00568e;
   height: 150px;
   padding: 20px;
   color: white;
@@ -20,4 +21,3 @@
 .App-intro {
   font-size: large;
 }
-

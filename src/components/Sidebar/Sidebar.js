@@ -1,11 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
-// import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const buttonContainer = {
   display: 'flex',
@@ -15,6 +9,17 @@ const buttonContainer = {
 };
 const informBtn = {
   margin: '0.25em'
+};
+
+const sidebar = {
+
+    height: "100vh",
+    float: "right",
+    display:  "flex",
+    justifyContent: "flex-end",
+    zIndex: "1200",
+    borderLeft: "1px rgba(0,0,0,0.2) solid",
+    boxShadow: "0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)"
 };
 const Testlist = [1,2,3,4,5];
 
@@ -38,21 +43,17 @@ const Sidebar = ({handleSave, handleTest}) => {
   }
 
   return (
-        // <div >
-          <Drawer
-            anchor="right"
-            variant="permanent">
+    <div style={sidebar}>
+        <div>
             <div style={buttonContainer}>
               <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
               <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleTest}>test</Button>
               <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
               <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
             </div>
-            <ul>{listItems}</ul>
-          </Drawer>
-        // </div>
+        </div>
+    </div>
   );
 }
 
 export default Sidebar;
-

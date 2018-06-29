@@ -5,8 +5,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
+import logo from "../../images/logo.png";
 
 const styles = {
   root: {
@@ -21,6 +21,10 @@ const styles = {
   },
   link: {
     textDecoration: "none"
+  },
+  logoIcon: {
+    height: "25px",
+    margin: "20px"
   }
 };
 
@@ -30,11 +34,7 @@ const Navbar = props => {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          />
+          <img src={logo} className={classes.logoIcon} alt="logo" />
 
           <Link className={classes.link} to="/">
             <Button className={classes.menuButton} color="primary">
