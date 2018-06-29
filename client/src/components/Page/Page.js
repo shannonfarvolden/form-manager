@@ -5,7 +5,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const Page = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogConfirm }) => {
-  
+
+  const newField = {...pageConfig}
   const handleChange = (e) => {
     console.log('handling locally', e)
   }
@@ -59,7 +60,7 @@ const Page = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
                   border: '1px solid #000',
                   padding: '2px'
                 }}
-                onClick={e => {e.preventDefault(); dialogOpen(fieldId)}}
+                onClick={() => dialogOpen(fieldId)}
               />
             </Tooltip>
             <Tooltip id="tooltip-top-end" title="Simulated field with default" placement="top-end">     
@@ -69,7 +70,6 @@ const Page = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
                   id={`${'ex_w8'}-${'1'}}-${'1'}-${fieldId}`}
                   key={index}
                   value={field.defaultValue}
-                  onChange={handleChange}
                   style={{
                     width: field.width,
                     height: field.height,
@@ -83,16 +83,13 @@ const Page = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
       })
       }
       </div>
-      {
-        selectedFieldId &&
-        <ConfigDialog
-            fieldId={selectedFieldId}
-            field={pageConfig[selectedFieldId]}
-            open={!!selectedFieldId}
-            dialogCancel={() => dialogCancel()}
-            dialogConfirm={(newField) => dialogConfirm(newField)}
-          />
-        }
+      <ConfigDialog
+          fieldId={selectedFieldId}
+          field={pageConfig[selectedFieldId]}
+          open={!!selectedFieldId}
+          dialogCancel={() => dialogCancel()}
+          dialogConfirm={() => dialogConfirm(newField)}
+        />
     </div>)
   );
 };
