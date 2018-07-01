@@ -4,7 +4,7 @@
 
 .App-logo {
   height: 80px;
-  filter: brightness(100);
+  filter: brightness(0) invert(1);
 }
 
 .App-header {
