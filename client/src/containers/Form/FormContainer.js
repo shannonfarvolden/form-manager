@@ -36,7 +36,7 @@ class FormContainer extends Component {
           this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] ) ?
           (<p>Error loading forms</p>)
         :
-          <div>
+          <div style={{display:'flex', flexDirection:'row-reverse', height: '100%'}}>
             <Sidebar
               handleSave={() => this.props.saveConfig()}
               handleTest={() => this.props.testConfig()}

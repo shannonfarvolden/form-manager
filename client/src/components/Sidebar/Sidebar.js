@@ -14,8 +14,7 @@ const informBtn = {
 
 const sidebar = {
 
-    height: "100vh",
-    float: "right",
+    height: "100%",
     display:  "flex",
     justifyContent: "flex-end",
     zIndex: "1200",
