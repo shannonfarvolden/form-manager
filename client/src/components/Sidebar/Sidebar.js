@@ -27,7 +27,7 @@ const listItems = Testlist.map((list)=>
   <li>{list}</li>
 );
 
-const Sidebar = ({handleSave, handleTest}) => {
+const Sidebar = ({handleExport, handleTest, handleSave, handleLoad, handleReset}) => {
 
   /* Maybe in the future handling prev/next
   can be a single function, pass in a page ? */
@@ -46,8 +46,11 @@ const Sidebar = ({handleSave, handleTest}) => {
     <div style={sidebar}>
         <div>
             <div style={buttonContainer}>
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
+              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleExport}>Export</Button>
               <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleTest}>test</Button>
+              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
+              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleLoad}>Load</Button>
+              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleReset}>Reset</Button>
               <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
               <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
             </div>
