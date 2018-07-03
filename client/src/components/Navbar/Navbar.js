@@ -34,7 +34,9 @@ const Navbar = props => {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Toolbar>
-          <img src={logo} className={classes.logoIcon} alt="logo" />
+          <Link to="/">
+            <img src={logo} className={classes.logoIcon} alt="logo" />
+          </Link>
 
           <Link className={classes.link} to="/">
             <Button className={classes.menuButton} color="primary">

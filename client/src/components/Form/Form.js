@@ -4,17 +4,9 @@ import ConfigDialog from '../ConfigDialog'
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogConfirm }) => {
-
-  const handleChange = (e) => {
-    console.log('handling locally', e)
-  }
+const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogConfirm, handleChangeValue }) => {
 
   const pageHeaderStyle = {
-    position: 'absolute',
-    marginTop: '100px',
-    top: 0,
-    left: 0,
     width: pageConfig.width || copyHeaderConfig.width || formHeaderConfig.width || '100%'
   }
 
@@ -22,28 +14,21 @@ const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
     (!pageConfig || pageConfig === {}) ?
     <p>Loading</p>
     :
-    (<div>
+    (<div style={{margin: 'auto', marginTop:'10px', height: '100%', overflow: 'scroll'}}>
       <img
         src={require('./../../images/' + ( pageConfig.bgImage || copyHeaderConfig.bgImage || formHeaderConfig.bgImage || 'blank.png' ))}
         alt=''
         style={pageHeaderStyle}
       />
-      <div
-        style={{
-          position: 'absolute',
-          marginTop: '100px',
-          top: 0,
-          left: 0,
-          width: '800px'
-        }}
-      >
+
       {Object.keys(pageConfig).map((fieldId, index) => {
         const field = pageConfig[fieldId];
         return (
           <div
             key={index}
             style={{
-              position: 'absolute',
+              position: 'relative',
+              width: 'fit-content',
               top: field.top,
               left: field.left
             }}
@@ -66,10 +51,10 @@ const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
               <input
                   type='text'
                   name={fieldId}
-                  id={`${'ex_w8'}-${'1'}}-${'1'}-${fieldId}`}
+                  id={`${'ex_w8'}-${'1'}-${'1'}-${fieldId}`}
                   key={index}
-                  value={field.defaultValue}
-                  onChange={handleChange}
+                  value={field.value}
+                  onChange={handleChangeValue}
                   style={{
                     width: field.width,
                     height: field.height,
@@ -82,7 +67,7 @@ const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
             </div>)
       })
       }
-      </div>
+
       {
         selectedFieldId &&
         <ConfigDialog

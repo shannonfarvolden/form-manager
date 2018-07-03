@@ -24,8 +24,22 @@ const fileHelper = {
   },
 
   resetConfig: () => {
-    console.log(formJson)
-    return formJson
+    const data = {...formJson};
+    Object.keys(data).forEach(formId => {
+      if(formId === 'header') return;
+      Object.keys(data[formId]).forEach(copyId => {
+        if(copyId === 'header') return;
+        Object.keys(data[formId][copyId]).forEach(pageId => {
+          if(pageId === 'header') return;
+          Object.keys(data[formId][copyId][pageId]).forEach(fieldId => {
+            Object.keys(data[formId][copyId][pageId]).forEach(configId => {
+              data[formId][copyId][pageId][configId].value = data[formId][copyId][pageId][configId].defaultValue || '';
+            })
+          })
+        })
+      })
+    })
+    return data
   },
 
   testConfig: (dataObj) => {

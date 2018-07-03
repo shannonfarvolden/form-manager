@@ -1,18 +1,28 @@
 import React from "react";
 
+import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogTitle";
 
+
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+//import ListItem from "@material-ui/core/ListItem";
 // import ListItemText from "@material-ui/core/ListItemText";
-import SelectConfig from "../SelectConfig";
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import TextField from '@material-ui/core/TextField'
+// import SelectConfig from "../SelectConfig";
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+//import TextField from '@material-ui/core/TextField';
+import Tab from  '@material-ui/core/Tab';
+import Tabs from  '@material-ui/core/Tabs';
+import Typography from '@material-ui/core/Typography';
+
+import ConfigDisplay from '../ConfigDisplay';
+import ConfigLayout from '../ConfigLayout';
+import ConfigFuture from '../ConfigFuture';
+
 
 import { withStyles } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
@@ -36,7 +46,8 @@ class ConfigDialog extends React.Component {
 
     this.state = {
       newField: {},
-      configOptions: []
+      configOptions: [],
+      tabId: 0
     };
   }
 
@@ -44,7 +55,7 @@ class ConfigDialog extends React.Component {
 
     // Define all possible configs for a field
     const configOptionsValue = [
-      // Presentation
+      // Layout
       { key: "top", editable: false, active: true, value: '' },
       { key: "left", editable: false, active: true, value: '' },
       { key: "width", editable: false, active: true, value: '' },
@@ -60,12 +71,12 @@ class ConfigDialog extends React.Component {
       { key: "newForm", editable: false, active: false, value: '' }
     ]
     
-    // Define the, for now temporary, new configs that will be updated if pressed 'Confirm'
-    console.log('nf=',this.state.newField)
+    // Define the local newConfigs that will be updated if pressed 'Confirm'
     let fieldValue = {};
     configOptionsValue.forEach(item => {
       if (item.active) fieldValue[item.key] = this.props.field[item.key] || null;
     })
+
     this.setState({
       newField: fieldValue,
       configOptions: configOptionsValue
@@ -81,23 +92,23 @@ class ConfigDialog extends React.Component {
     this.props.dialogConfirm(fieldValue)
   };
 
-  handleFieldCheck = name => event => {
+
+  handleTabChange = (event, value) => {
+    this.setState({ tabId: value });
+  };
+
+
+  handleTexboxChange = event => {
+    let newFieldValue = this.state.newField;
+    newFieldValue[event.target.name] = event.target.value
+    this.setState({newField: newFieldValue});
+  };
+
+  handleCheckboxChange = name => {
     let newFieldValue = this.state.newField;
     newFieldValue[name] = !this.state.newField[name]
     this.setState({newField: newFieldValue});
   }
-
-  // handleFieldChange = name => e => {
-  //   let newFieldValue = this.state.newField;
-  //   newFieldValue[name] = !this.state.newField[name]
-  //   this.setState({newField: newFieldValue});
-  // }
-
-  handleFieldChange = name => event => {
-    let newFieldValue = this.state.newField;
-    newFieldValue[name] = event.target.value
-    this.setState({newField: newFieldValue});
-  };
 
   render = () => { 
 
@@ -108,7 +119,7 @@ class ConfigDialog extends React.Component {
       aria-labelledby="simple-dialog-title"
       open={!!this.props.fieldId} 
     >
-      <DialogTitle id="simple-dialog-title">Add Config To Field {this.props.fieldId ? this.props.fieldId : ''} from page </DialogTitle>
+      <DialogTitle id="simple-dialog-title">Field: {this.props.fieldId ? this.props.fieldId : ''}</DialogTitle>
         <DialogContent>
       {/* 
         <SelectConfig
@@ -123,7 +134,6 @@ class ConfigDialog extends React.Component {
           placeholder="Config"
           title="Config type"
         /> */}
-        <List>
         {/*<List>
           {Object.keys(this.state.newField)
             .filter(key => this.state.newField[key] !== '')
@@ -137,40 +147,32 @@ class ConfigDialog extends React.Component {
           ))}
         </List>
         */}
-        <ListItem key='98'>
-          <TextField
-            id="defaultValue"
-            label="Default"
-            value={this.state.newField.defaultValue}
-            onChange={this.handleFieldChange('defaultValue')}
-            margin="normal"
-          />
-        </ListItem>
-        <ListItem key='99'>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={!!this.state.newField.disabled}
-                onChange={this.handleFieldCheck('disabled')}
-                value={'disabled'}
-              />
-            }
-            label="Disabled"
-          />
-        </ListItem>
-        <ListItem key='100'>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={!!this.state.newField.mandatory}
-                onChange={this.handleFieldCheck('mandatory')}
-                value={'mandatory'}
-              />
-            }
-            label="Mandatory"
-          />
-          </ListItem>
-        </List>
+        <AppBar position="static">
+          <Tabs
+            value={this.state.tabId}
+            onChange={this.handleTabChange}
+          >
+            <Tab label="Display" href="#Display" />
+            <Tab label="Layout" href="#Layout" />
+            <Tab label="Future" href="#Future" />
+          </Tabs>
+        </AppBar>
+        {this.state.tabId === 0 &&
+        <ConfigDisplay
+          newField={this.state.newField}
+          handleTexboxChange={e => this.handleTexboxChange(e)}
+          handleCheckboxChange={name => this.handleCheckboxChange(name)}
+        />}
+        {this.state.tabId === 1 &&
+        <ConfigLayout
+          newField={this.state.newField}
+          handleTexboxChange={e => this.handleTexboxChange(e)}
+        />}
+        {this.state.tabId === 2 &&
+        <ConfigFuture
+          newField={this.state.newField}
+          handleTexboxChange={e => this.handleTexboxChange(e)}
+        />}
       </DialogContent>
       <DialogActions>
         <Button onClick={this.props.dialogCancel} color="primary">
@@ -184,5 +186,6 @@ class ConfigDialog extends React.Component {
   );
   }
 }
+
 
 export default withStyles(styles)(ConfigDialog);

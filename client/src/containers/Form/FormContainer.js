@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {dialogOpen, dialogCancel, dialogConfirm, getForms, saveConfig, testConfig } from "../../redux/modules/formConfig";
+import {dialogOpen, dialogCancel, dialogConfirm, saveConfig, loadConfig, exportConfig, testConfig, resetConfig, changeValue } from "../../redux/modules/formConfig";
 
 import Sidebar from "../../components/Sidebar";
 import Form from "../../components/Form";
 
 class FormContainer extends Component {
   componentDidMount() {
-    this.props.getForms();
+    this.props.resetConfig();
   }
 
-  handleChange() {
-    console.log('Changes will be handled here');
+  handleChangeValue(e) {
+    this.props.changeValue(e)
   }
 
   handleDialogConfirm(newField) {
@@ -36,20 +36,23 @@ class FormContainer extends Component {
           this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] ) ?
           (<p>Error loading forms</p>)
         :
-          <div>
+          <div style={{display:'flex', flexDirection:'row-reverse', height: '100%'}}>
             <Sidebar
+              handleExport={() => this.props.exportConfig()}
               handleSave={() => this.props.saveConfig()}
+              handleLoad={() => this.props.loadConfig()}
+              handleReset={() => this.props.resetConfig()}
               handleTest={() => this.props.testConfig()}
             />
             <Form
               formHeaderConfig={this.props.forms[currentPageArr[0]].header || {}}
               copyHeaderConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]].header || {}}
               pageConfig={this.props.forms[currentPageArr[0]][currentPageArr[1]][currentPageArr[2]] || {}}
-              handleChange={e => this.handleChange(e)}
+              handleChangeValue={e => this.handleChangeValue(e)}
               selectedFieldId={this.props.selectedFieldId}
-              dialogOpen={(fieldId) => this.props.dialogOpen(fieldId)}
+              dialogOpen={fieldId => this.props.dialogOpen(fieldId)}
               dialogCancel={() => this.props.dialogCancel()}
-              dialogConfirm={(newField) => this.handleDialogConfirm(newField)}
+              dialogConfirm={newField => this.handleDialogConfirm(newField)}
             />
           </div>
     );
@@ -68,12 +71,15 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getForms: () => dispatch(getForms()),
+    changeValue: e => dispatch(changeValue(e)),
     saveConfig: () => dispatch(saveConfig()),
+    loadConfig: () => dispatch(loadConfig()),
+    exportConfig: () => dispatch(exportConfig()),
+    resetConfig: () => dispatch(resetConfig()),    
     testConfig: () => dispatch(testConfig()),
-    dialogOpen: (id) => dispatch(dialogOpen(id)),
+    dialogOpen: id => dispatch(dialogOpen(id)),
     dialogCancel: () => dispatch(dialogCancel()),
-    dialogConfirm: (newField) => dispatch(dialogConfirm(newField))
+    dialogConfirm: newField => dispatch(dialogConfirm(newField))
   };
 };
 
