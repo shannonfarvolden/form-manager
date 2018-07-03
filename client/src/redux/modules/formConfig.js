@@ -13,6 +13,7 @@ const CONFIG_RESET = 'CONFIG_RESET';
 const CONFIG_ERROR = 'CONFIG_ERROR';
 const CONFIG_MESSAGE = 'CONFIG_MESSAGE';
 const TEST_CONFIG = 'TEST_CONFIG';
+const UPD_VALUE = 'UPD_VALUE';
 
 
 // rest (not implemented)
@@ -85,9 +86,20 @@ export const resetConfig = () => {
   forms: {...data}
 }}
 
+//change value
+
+export const changeValue = e => {
+  console.log('e.target.id', e.target.id);
+  return {
+    type: UPD_VALUE,
+    id: e.target.id,
+    value: e.target.value
+  }
+}
+
 // dialog
 
-export const dialogOpen = (selectedFieldId) => ({
+export const dialogOpen = selectedFieldId => ({
   type: DIALOG_OPEN,
   selectedFieldId
 })
@@ -96,7 +108,7 @@ export const dialogCancel = () => ({
   type: DIALOG_CANCEL
 })
 
-export const dialogConfirm = (newField) => {
+export const dialogConfirm = newField => {
   console.log('in redux, newField=', newField)
   return {
     type: DIALOG_CONFIRM,
@@ -116,12 +128,12 @@ export const testConfig = () => ({
   message:  'Test config'
 })
 
-const configError = (error) => ({
+const configError = error => ({
   type: CONFIG_ERROR,
   error
 })
 
-const configMessage = (message) => ({
+const configMessage = message => ({
   type: CONFIG_MESSAGE,
   message
 })
@@ -134,11 +146,21 @@ const initialState = {
   forms: {},
   config: {},
   error: null,
-  isLoading: true
+  isLoading: true,
+  message: ''
 }
 
 export const configReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'UPD_VALUE':
+      let forms = {...state.forms}
+      const idArr1 = action.id.split('-');
+      console.log('idArr1', idArr1);
+      forms[idArr1[0]][idArr1[1]][idArr1[2]][idArr1[3]].value = action.value;
+      return {
+        ...state,
+        forms: {...state.forms}
+      }
     case 'DIALOG_OPEN':
     return {
       ...state,
@@ -206,7 +228,7 @@ export const configReducer = (state = initialState, action) => {
       return {
         ...state,
         message: action.message
-      }        
+      }     
     default:
       return state
   }
