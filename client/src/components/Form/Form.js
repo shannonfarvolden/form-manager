@@ -4,11 +4,7 @@ import ConfigDialog from '../ConfigDialog'
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogConfirm }) => {
-
-  const handleChange = (e) => {
-    console.log('handling locally', e)
-  }
+const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId, dialogOpen, dialogCancel, dialogConfirm, handleChangeValue }) => {
 
   const pageHeaderStyle = {
     width: pageConfig.width || copyHeaderConfig.width || formHeaderConfig.width || '100%'
@@ -55,10 +51,10 @@ const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
               <input
                   type='text'
                   name={fieldId}
-                  id={`${'ex_w8'}-${'1'}}-${'1'}-${fieldId}`}
+                  id={`${'ex_w8'}-${'1'}-${'1'}-${fieldId}`}
                   key={index}
-                  value={field.defaultValue}
-                  onChange={handleChange}
+                  value={field.value}
+                  onChange={handleChangeValue}
                   style={{
                     width: field.width,
                     height: field.height,
