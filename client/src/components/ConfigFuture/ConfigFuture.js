@@ -37,6 +37,15 @@ const ConfigFuture = ({newField, handleTexboxChange}) => {
             disabled={true}
           />
         </ListItem>
+        <ListItem key='4'>
+          <TextField
+            label="type"
+            name="type"
+            value="text"
+            onChange={e => handleTexboxChange(e)}
+            disabled={true}
+          />
+        </ListItem>
     </List>
   )
 }
