@@ -2,31 +2,27 @@ import React from "react";
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogTitle";
-
-
-import List from "@material-ui/core/List";
-//import ListItem from "@material-ui/core/ListItem";
-// import ListItemText from "@material-ui/core/ListItemText";
-// import SelectConfig from "../SelectConfig";
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import TextField from '@material-ui/core/TextField';
 import Tab from  '@material-ui/core/Tab';
 import Tabs from  '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
+
+//import List from "@material-ui/core/List";
+//import ListItem from "@material-ui/core/ListItem";
+//import ListItemText from "@material-ui/core/ListItemText";
+//import SelectConfig from "../SelectConfig";
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
+//import TextField from '@material-ui/core/TextField';
+//import Typography from '@material-ui/core/Typography';
 
 import ConfigDisplay from '../ConfigDisplay';
 import ConfigLayout from '../ConfigLayout';
 import ConfigFuture from '../ConfigFuture';
 
-
 import { withStyles } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
-
 
 
 const styles = {
@@ -35,9 +31,6 @@ const styles = {
     color: blue[600]
   }
 };
-
-//const ConfigDialog = ({fieldId, field, dialogCancel, dialogConfirm}) => {
-
 
 class ConfigDialog extends React.Component {
 
@@ -53,22 +46,23 @@ class ConfigDialog extends React.Component {
 
   componentDidMount() {
 
-    // Define all possible configs for a field
+    // List of possible configs
     const configOptionsValue = [
-      // Layout
-      { key: "top", editable: false, active: true, value: '' },
-      { key: "left", editable: false, active: true, value: '' },
-      { key: "width", editable: false, active: true, value: '' },
-      { key: "height", editable: false, active: true, value: '' },
-      { key: "type", editable: false, active: true, value: '' },
-      // Curretly editable
+      // Display
       { key: "mandatory", editable: true, active: true, value: '' },
       { key: "disabled", editable: true, active: true, value: '' },
       { key: "defaultValue", editable: true, active: true, value: '' },
-      // Future editable 
+      { key: "valid", editable: true, active: true, value: '' },
+      // Layout
+      { key: "top", editable: true, active: true, value: '' },
+      { key: "left", editable: true, active: true, value: '' },
+      { key: "width", editable: true, active: true, value: '' },
+      { key: "height", editable: true, active: true, value: '' },
+      // Future
       { key: "populate", editable: false, active: false, value: '' },
       { key: "mask", editable: false, active: false },
-      { key: "newForm", editable: false, active: false, value: '' }
+      { key: "newForm", editable: false, active: false, value: '' },
+      { key: "type", editable: false, active: true, value: '' }
     ]
     
     // Define the local newConfigs that will be updated if pressed 'Confirm'
@@ -186,6 +180,5 @@ class ConfigDialog extends React.Component {
   );
   }
 }
-
 
 export default withStyles(styles)(ConfigDialog);
