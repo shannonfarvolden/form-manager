@@ -10,7 +10,7 @@ const ConfigDisplay = ({newField, handleTexboxChange, handleCheckboxChange}) => 
 
   return (
     <List>
-        <ListItem key='98'>
+        <ListItem key='1'>
           <TextField
             label="Default"
             name="defaultValue"
@@ -19,7 +19,7 @@ const ConfigDisplay = ({newField, handleTexboxChange, handleCheckboxChange}) => 
             margin="normal"
           />
         </ListItem>
-        <ListItem key='99'>
+        <ListItem key='2'>
           <FormControlLabel
             control={
               <Checkbox
@@ -27,13 +27,12 @@ const ConfigDisplay = ({newField, handleTexboxChange, handleCheckboxChange}) => 
                 checked={newField.disabled}
                 onChange={() => handleCheckboxChange('disabled')}
                 value={'disabled'}
-                value="disabled"
               />
             }
             label="Disabled"
           />
         </ListItem>
-        <ListItem key='100'>
+        <ListItem key='3'>
           <FormControlLabel
             control={
               <Checkbox
@@ -41,12 +40,23 @@ const ConfigDisplay = ({newField, handleTexboxChange, handleCheckboxChange}) => 
                 checked={newField.mandatory}
                 onChange={() => handleCheckboxChange('mandatory')}
                 value={'mandatory'}
-                value="mandatory"
               />
             }
             label="Mandatory"
           />
           </ListItem>
+          <ListItem key='4'>
+          <TextField
+            label="Valid"
+            name="valid"
+            value={newField.valid}
+            onChange={e => handleTexboxChange(e)}
+            margin="normal"
+            style={{
+              width: '900px'
+            }}
+          />
+        </ListItem>
     </List>
   )
 }
