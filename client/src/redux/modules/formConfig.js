@@ -144,7 +144,6 @@ const initialState = {
   currentPageId: '',
   selectedFieldId: null,
   forms: {},
-  config: {},
   error: null,
   isLoading: true,
   message: ''
@@ -156,7 +155,7 @@ export const configReducer = (state = initialState, action) => {
       let forms = {...state.forms}
       const idArr1 = action.id.split('-');
       console.log('idArr1', idArr1);
-      forms[idArr1[0]][idArr1[1]][idArr1[2]][idArr1[3]].value = action.value;
+      forms[idArr1[0]][idArr1[1]][idArr1[2]][idArr1[3]].value = action.value.trim();
       return {
         ...state,
         forms: {...state.forms}

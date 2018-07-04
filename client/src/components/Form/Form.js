@@ -23,6 +23,7 @@ const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
 
       {Object.keys(pageConfig).map((fieldId, index) => {
         const field = pageConfig[fieldId];
+        const invalid = (field.mandatory && field.value === '')
         return (
           <div
             key={index}
@@ -55,10 +56,11 @@ const Form = ({ formHeaderConfig, copyHeaderConfig, pageConfig, selectedFieldId,
                   key={index}
                   value={field.value}
                   onChange={handleChangeValue}
+                  disabled={field.disabled}
                   style={{
                     width: field.width,
                     height: field.height,
-                    backgroundColor: '#ADD8E6',
+                    backgroundColor: field.disabled ? '	#D3D3D3' : (invalid ? '#FFFF00' : '#ADD8E6'),
                     border: '2px solid transparent',
                     padding: '1px'
                   }}
