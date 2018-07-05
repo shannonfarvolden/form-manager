@@ -1,6 +1,6 @@
+import axios from "axios";
 import fileHelper from "./helpers/helper-file";
 import restHelper from "./helpers/helper-rest";
-import { FETCH_FORMS } from "../actions/types";
 
 // Actions
 
@@ -15,73 +15,57 @@ const CONFIG_ERROR = "CONFIG_ERROR";
 const CONFIG_MESSAGE = "CONFIG_MESSAGE";
 const TEST_CONFIG = "TEST_CONFIG";
 const UPD_VALUE = "UPD_VALUE";
+const SET_CONFIG_NAME = "SET_CONFIG_NAME";
+const FETCH_FORMS = "FETCH_FORMS";
 
-// rest (not implemented)
-
-export const loadConfig = () => {
-  return dispatch => {
-    // dispatch(saveForm());
-    console.log("will load config");
-  };
-  // return dispatch => {
-  //   try {
-  //     dispatch(getFormsBegin());
-  //     fetch(
-  //       'http://path',
-  //       {
-  //         method: 'get',
-  //         headers: {
-  //           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  //         }
-  //       }
-  //     )
-  //     .then(res => res.json())
-  //     .then(json => dispatch(getFormsSuccess(json)))
-  //     .catch(err => { throw err })
-  //   } catch(error) {
-  //     console.log('error', error);
-  //     dispatch(configError(error));
-  //   }
-  // }
+export const loadConfig = id => async dispatch => {
+  try {
+    const res = await axios.get("/api/forms/" + id);
+    dispatch(getFormsSuccess(res.data.config));
+    console.log("load success");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-export const saveConfig = () => {
-  return dispatch => {
-    console.log("saveConfig");
-    // dispatch(saveForm());
-  };
-  // return dispatch => {
-  //   try {
-  //     dispatch(getFormsBegin());
-  //     fetch("http://path", {
-  //       method: "post",
-  //       headers: {
-  //         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-  //       },
-  //       mode: "cors",
-  //       body: JSON.stringify("forms")
-  //     })
-  //       .then(res => res.json())
-  //       .then(json => dispatch(configMessage("saved")))
-  //       .catch(err => {
-  //         throw err;
-  //       });
-  //   } catch (error) {
-  //     console.log("error", error);
-  //     dispatch(configError(error));
-  //   }
-  // };
+export const saveConfig = ({ title, config }) => async dispatch => {
+  try {
+    const res = await axios.post("/api/forms", {
+      title,
+      config
+    });
+    console.log("save success");
+  } catch (e) {
+    console.log(e);
+  }
 };
+
+export const fetchForms = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/forms");
+    console.log("fetch success");
+    dispatch({ type: FETCH_FORMS, formList: res.data });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const setConfigName = configName => ({
+  type: SET_CONFIG_NAME,
+  configName
+});
 
 const getFormsBegin = () => ({
   type: GET_CONFIG_BEGIN
 });
 
-const getFormsSuccess = data => ({
-  type: GET_CONFIG_SUCCESS,
-  currentPageId: "ex_w8-1-1",
-  forms: fileHelper.resetConfig()
-});
+const getFormsSuccess = data => {
+  return {
+    type: GET_CONFIG_SUCCESS,
+    currentPageId: "ex_w8-1-1",
+    forms: data
+  };
+};
 
 // reset
 
@@ -153,7 +137,9 @@ const initialState = {
   forms: {},
   error: null,
   isLoading: true,
-  message: ""
+  message: "",
+  configName: "Config " + Date.now(),
+  formList: []
 };
 
 export const configReducer = (state = initialState, action) => {
@@ -196,11 +182,10 @@ export const configReducer = (state = initialState, action) => {
         isLoading: true
       };
     case "GET_CONFIG_SUCCESS":
-      console.log("config got");
       return {
         ...state,
         currentPageId: action.currentPageId,
-        forms: { ...action.forms },
+        forms: action.forms,
         isLoading: false
       };
     case "EXPORT_CONFIG":
@@ -239,9 +224,18 @@ export const configReducer = (state = initialState, action) => {
         ...state,
         error: msg
       };
-    case FETCH_FORMS:
-      console.log("hit fetch forms action type");
-      return action.payload;
+    case "SET_CONFIG_NAME":
+      console.log("hit form name");
+      return {
+        ...state,
+        configName: action.configName
+      };
+    case "FETCH_FORMS":
+      return {
+        ...state,
+        formList: action.formList
+      };
+
     default:
       return state;
   }
