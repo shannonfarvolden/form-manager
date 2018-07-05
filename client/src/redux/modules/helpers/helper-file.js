@@ -5,7 +5,7 @@ const fileHelper = {
 
   saveConfigTest: (dataObj) => {
 
-    const btnElement = document.getElementById("saveButton");
+    const btnElement = document.getElementById("exportButton");
     
     const fileName = 'config.json';
     
@@ -24,6 +24,7 @@ const fileHelper = {
   },
 
   resetConfig: () => {
+    console.log('will reset')
     const data = {...formJson};
     Object.keys(data).forEach(formId => {
       if(formId === 'header') return;

@@ -80,10 +80,9 @@ const getFormsSuccess = (data) => ({
 // reset
 
 export const resetConfig = () => {
-  const data = fileHelper.resetConfig()
+  console.log('in action reset')
   return {
-  type: CONFIG_RESET,
-  forms: {...data}
+  type: CONFIG_RESET
 }}
 
 //change value
@@ -202,6 +201,7 @@ export const configReducer = (state = initialState, action) => {
       }
     case 'CONFIG_RESET':
       const data = fileHelper.resetConfig();
+      console.log('in reducer, reset', data)
       return {
         ...state,
         error: null,
@@ -224,8 +224,6 @@ export const configReducer = (state = initialState, action) => {
         }
     case 'TEST_CONFIG':
       const msg = fileHelper.testConfig({forms: state.forms});
-      debugger
-      console.log('in redux, err=', msg)
       return {
         ...state,
         error: msg
