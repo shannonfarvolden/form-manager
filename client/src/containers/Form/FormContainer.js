@@ -9,9 +9,9 @@ import {
   exportConfig,
   testConfig,
   resetConfig,
-  changeValue
+  changeValue,
+  setConfigName
 } from "../../redux/modules/formConfig";
-import { saveForm } from "../../redux/actions";
 import Sidebar from "../../components/Sidebar";
 import Form from "../../components/Form";
 
@@ -57,10 +57,16 @@ class FormContainer extends Component {
       >
         <Sidebar
           handleExport={() => this.props.exportConfig()}
-          handleSave={() => this.props.saveConfig()}
-          handleLoad={() => this.props.loadConfig()}
+          handleSave={() =>
+            this.props.saveConfig({
+              title: this.props.configName,
+              config: this.props.forms
+            })
+          }
+          handleLoad={() => this.props.loadConfig("5b3da1268bbadb1c30ee77b7")}
           handleReset={() => this.props.resetConfig()}
           handleTest={() => this.props.testConfig()}
+          handleConfigName={configName => this.props.setConfigName(configName)}
           errorMessage={this.props.error}
         />
         <Form
@@ -90,22 +96,23 @@ const mapStateToProps = state => {
     forms: state.formConfig.forms,
     error: state.formConfig.error,
     isLoading: state.formConfig.isLoading,
-    selectedFieldId: state.formConfig.selectedFieldId
+    selectedFieldId: state.formConfig.selectedFieldId,
+    configName: state.formConfig.configName
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     changeValue: e => dispatch(changeValue(e)),
-    saveConfig: () => dispatch(saveConfig()),
-    loadConfig: () => dispatch(loadConfig()),
+    saveConfig: (...values) => dispatch(saveConfig(...values)),
+    loadConfig: id => dispatch(loadConfig(id)),
     exportConfig: () => dispatch(exportConfig()),
     resetConfig: () => dispatch(resetConfig()),
     testConfig: () => dispatch(testConfig()),
     dialogOpen: id => dispatch(dialogOpen(id)),
     dialogCancel: () => dispatch(dialogCancel()),
     dialogConfirm: newField => dispatch(dialogConfirm(newField)),
-    saveForm: values => dispatch(saveForm(values))
+    setConfigName: configName => dispatch(setConfigName(configName))
   };
 };
 
