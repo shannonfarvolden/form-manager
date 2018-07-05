@@ -25,6 +25,7 @@ class FormContainer extends Component {
 
   render() {
     const currentPageArr = this.props.currentPageId && this.props.currentPageId.split('-');
+    debugger
     return (
       this.props.isLoading  ?
         <p>Loading</p>
@@ -43,6 +44,7 @@ class FormContainer extends Component {
               handleLoad={() => this.props.loadConfig()}
               handleReset={() => this.props.resetConfig()}
               handleTest={() => this.props.testConfig()}
+              errorMessage={this.props.error}
             />
             <Form
               formHeaderConfig={this.props.forms[currentPageArr[0]].header || {}}
@@ -63,7 +65,7 @@ const mapStateToProps = state => {
   return {
     currentPageId: state.formConfig.currentPageId,
     forms: state.formConfig.forms,
-    errors: state.formConfig.errors,
+    error: state.formConfig.error,
     isLoading: state.formConfig.isLoading,
     selectedFieldId: state.formConfig.selectedFieldId
   };
