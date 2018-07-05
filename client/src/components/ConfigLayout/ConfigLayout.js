@@ -42,14 +42,6 @@ const ConfigLayout = ({newField, handleTexboxChange}) => {
             onChange={e => handleTexboxChange(e)}
           />
         </ListItem>
-        <ListItem key='5'>
-          <TextField
-            label="type"
-            name="type"
-            value={'text'}
-            disabled={true}
-          />
-        </ListItem>
     </List>
   )
 }
