@@ -14,6 +14,11 @@ const informBtn = {
   margin: '0.25em'
 };
 
+const validateBtn = {
+  width: "inherit",
+  margin: "10px"
+};
+
 const sidebar = {
 
     height: "100%",
@@ -43,13 +48,18 @@ const Sidebar = ({handleExport, handleTest, handleSave, handleLoad, handleReset,
     <div style={sidebar}>
         <div>
             <div style={buttonContainer}>
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="exportButton" onClick={handleExport}>Export</Button>
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleTest}>test</Button>
               <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
               <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="loadButton" onClick={handleLoad}>Load</Button>
+
+              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="exportButton" onClick={handleExport}>Export</Button>
               <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="resetButton" onClick={dialogOpen}>Reset</Button>
-              <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
-              <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
+
+              <Button style={informBtn, validateBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleTest}>validate</Button>
+
+              <div>
+                <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
+                <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
+              </div>
               <ErrorDialog errorMessage={errorMessage}/>
             </div>
         </div>
