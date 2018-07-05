@@ -99,7 +99,16 @@ const Sidebar = ({
           >
             Reset
           </Button>
-
+          <Button
+            style={(informBtn, validateBtn)}
+            variant="raised"
+            href="javascript:void(0)"
+            color="primary"
+            id="testButton"
+            onClick={handleTest}
+          >
+            validate
+          </Button>
           <div>
             <Button
               style={informBtn}

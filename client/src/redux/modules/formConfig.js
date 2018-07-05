@@ -224,7 +224,6 @@ export const configReducer = (state = initialState, action) => {
         error: msg
       };
     case "SET_CONFIG_NAME":
-      console.log("hit form name");
       return {
         ...state,
         configName: action.configName
