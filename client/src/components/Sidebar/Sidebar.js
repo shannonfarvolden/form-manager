@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import ErrorDialog from "../ErrorDialog"
+import ErrorDialog from "../ErrorDialog";
 import FormDialog from "../FormDialog";
 import FormSelect from "../FormSelect";
 
@@ -30,8 +30,16 @@ const sidebar = {
     "0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)"
 };
 
-const Sidebar = ({handleExport, handleTest, handleSave, handleLoad, handleReset,dialogOpen, errorMessage}) => {
-
+const Sidebar = ({
+  handleExport,
+  handleTest,
+  handleSave,
+  handleLoad,
+  handleReset,
+  dialogOpen,
+  handleConfigName,
+  errorMessage
+}) => {
   /* Maybe in the future handling prev/next
   can be a single function, pass in a page ? */
 
@@ -47,25 +55,71 @@ const Sidebar = ({handleExport, handleTest, handleSave, handleLoad, handleReset,
 
   return (
     <div style={sidebar}>
-        <div>
-            <div style={buttonContainer}>
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="saveButton" onClick={handleSave}>Save</Button>
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="loadButton" onClick={handleLoad}>Load</Button>
+      <div>
+        <div style={buttonContainer}>
+          <Button
+            style={informBtn}
+            variant="raised"
+            href="javascript:void(0)"
+            color="primary"
+            id="exportButton"
+            onClick={handleExport}
+          >
+            Export
+          </Button>
+          <Button
+            style={informBtn}
+            variant="raised"
+            href="javascript:void(0)"
+            color="primary"
+            id="resetButton"
+            onClick={dialogOpen}
+          >
+            Reset
+          </Button>
 
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="exportButton" onClick={handleExport}>Export</Button>
-              <Button style={informBtn} variant="raised" href="javascript:void(0)" color="primary" id="resetButton" onClick={dialogOpen}>Reset</Button>
+          <Button
+            style={(informBtn, validateBtn)}
+            variant="raised"
+            href="javascript:void(0)"
+            color="primary"
+            id="testButton"
+            onClick={handleTest}
+          >
+            validate
+          </Button>
 
-              <Button style={informBtn, validateBtn} variant="raised" href="javascript:void(0)" color="primary" id="testButton" onClick={handleTest}>validate</Button>
-
-              <div>
-                <Button style={informBtn} variant="raised" onClick={handlePrev} color="secondary">PREV</Button>
-                <Button style={informBtn} variant="raised" onClick={handleNext} color="secondary">NEXT</Button>
-              </div>
-              <FormDialog handleSave={handleConfigName} />
-              <FormSelect />
-              <ErrorDialog errorMessage={errorMessage}/>
-            
-            </div>
+          <div>
+            <Button
+              style={informBtn}
+              variant="raised"
+              onClick={handlePrev}
+              color="secondary"
+            >
+              PREV
+            </Button>
+            <Button
+              style={informBtn}
+              variant="raised"
+              onClick={handleNext}
+              color="secondary"
+            >
+              NEXT
+            </Button>
+          </div>
+          <Button
+            style={informBtn}
+            variant="raised"
+            href="javascript:void(0)"
+            color="primary"
+            id="saveButton"
+            onClick={handleSave}
+          >
+            Save
+          </Button>
+          <FormDialog handleSave={handleConfigName} />
+          <FormSelect />
+          <ErrorDialog errorMessage={errorMessage} />
         </div>
       </div>
     </div>
