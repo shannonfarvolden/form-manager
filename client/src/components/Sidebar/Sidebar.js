@@ -17,7 +17,8 @@ const informBtn = {
 
 const validateBtn = {
   width: "inherit",
-  margin: "10px"
+  margin: "10px",
+  margin: "0.25em"
 };
 
 const sidebar = {
@@ -57,7 +58,7 @@ const Sidebar = ({
     <div style={sidebar}>
       <div>
         <div style={buttonContainer}>
-          <Button
+          {/* <Button
             style={informBtn}
             variant="raised"
             href="javascript:void(0)"
@@ -76,17 +77,27 @@ const Sidebar = ({
             onClick={dialogOpen}
           >
             Reset
-          </Button>
+          </Button> */}
 
           <Button
-            style={(informBtn, validateBtn)}
+            style={informBtn}
             variant="raised"
             href="javascript:void(0)"
             color="primary"
-            id="testButton"
-            onClick={handleTest}
+            id="exportButton"
+            onClick={handleExport}
           >
-            validate
+            Export
+          </Button>
+          <Button
+            style={informBtn}
+            variant="raised"
+            href="javascript:void(0)"
+            color="primary"
+            id="resetButton"
+            onClick={handleReset}
+          >
+            Reset
           </Button>
 
           <div>

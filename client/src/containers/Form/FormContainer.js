@@ -36,7 +36,6 @@ class FormContainer extends Component {
   render() {
     const currentPageArr =
       this.props.currentPageId && this.props.currentPageId.split("-");
-
     return this.props.isLoading ? (
       <p>Loading</p>
     ) : !(
@@ -61,9 +60,7 @@ class FormContainer extends Component {
             this.props.saveConfig({
               title: this.props.configName,
               config: this.props.forms
-            })
-          }
-          handleLoad={() => this.props.loadConfig("5b3da1268bbadb1c30ee77b7")}
+            })}
           handleReset={() => this.props.resetConfig()}
           handleTest={() => this.props.testConfig()}
           handleConfigName={configName => this.props.setConfigName(configName)}
@@ -116,7 +113,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FormContainer);

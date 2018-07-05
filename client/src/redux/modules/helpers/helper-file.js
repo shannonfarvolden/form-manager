@@ -1,49 +1,69 @@
-
-import { formJson } from './helper-data'
+import { formJson } from "./helper-data";
 
 const fileHelper = {
-
-  saveConfigTest: (dataObj) => {
-
+  saveConfigTest: dataObj => {
     const btnElement = document.getElementById("exportButton");
-    
-    const fileName = 'config.json';
-    
-    let blob = new Blob([JSON.stringify(dataObj, 0,2)], {type : 'text/json;charset=utf-8'});
-    
+
+    const fileName = "config.json";
+
+    let blob = new Blob([JSON.stringify(dataObj, 0, 2)], {
+      type: "text/json;charset=utf-8"
+    });
+
     btnElement.href = URL.createObjectURL(blob);
-    
-    btnElement.download = fileName
+
+    btnElement.download = fileName;
     // return link
     // console.log('will save in '+fileName, data);
   },
 
-  saveConfig: (dataObj) => {
+  saveConfig: dataObj => {
     this.saveConfigTest(dataObj);
     // Replace here by Alex solution
   },
 
   resetConfig: () => {
-    const data = {...formJson};
+    console.log("will reset");
+    const data = { ...formJson };
     Object.keys(data).forEach(formId => {
-      if(formId === 'header') return;
+      if (formId === "header") return;
       Object.keys(data[formId]).forEach(copyId => {
-        if(copyId === 'header') return;
+        if (copyId === "header") return;
         Object.keys(data[formId][copyId]).forEach(pageId => {
-          if(pageId === 'header') return;
+          if (pageId === "header") return;
           Object.keys(data[formId][copyId][pageId]).forEach(fieldId => {
             Object.keys(data[formId][copyId][pageId]).forEach(configId => {
-              data[formId][copyId][pageId][configId].value = data[formId][copyId][pageId][configId].defaultValue || '';
-            })
-          })
-        })
-      })
-    })
-    return data
+              data[formId][copyId][pageId][configId].value =
+                data[formId][copyId][pageId][configId].defaultValue || "";
+            });
+          });
+        });
+      });
+    });
+    return data;
   },
 
-  testConfig: (dataObj) => {
-    
+  recalcConfig: data => {
+    console.log("will recalc");
+    Object.keys(data).forEach(formId => {
+      if (formId === "header") return;
+      Object.keys(data[formId]).forEach(copyId => {
+        if (copyId === "header") return;
+        Object.keys(data[formId][copyId]).forEach(pageId => {
+          if (pageId === "header") return;
+          Object.keys(data[formId][copyId][pageId]).forEach(fieldId => {
+            Object.keys(data[formId][copyId][pageId]).forEach(configId => {
+              data[formId][copyId][pageId][configId].value =
+                data[formId][copyId][pageId][configId].defaultValue || "";
+            });
+          });
+        });
+      });
+    });
+    return data;
+  },
+
+  testConfig: dataObj => {
     // // test if data is an object
     // if(!(dataObj instanceof Object)) {
     //   console.warn('It is not an Object');
@@ -63,7 +83,7 @@ const fileHelper = {
     // } catch (e) {
     //     console.warn('Invalid JSON')
     // }
-    
+
     // // test dataObj has a form name
     // if (!dataObj.hasOwnProperty('forms')) {
     //   console.warn('Expected "forms" but got ', Object.keys(dataObj)[0])
@@ -75,7 +95,7 @@ const fileHelper = {
 
     //     console.log('Form: ', form)
     //     console.log(dataObj.forms[form])
-      
+
     //     Object.keys(dataObj.forms)
     //     if(!dataObj.forms[form].hasOwnProperty('header')) {
     //       console.warn('Expected "header" inside ' + form + ' form object')
@@ -100,20 +120,20 @@ const fileHelper = {
     //     if (index > -1) {
     //       copies.splice(index, 1)
     //     }
-        
+
     //     if(copies.length > 0) {
     //       for(var j=0; j < copies.length; j++) {
     //         var copy = parseInt(copies[j])
     //         if (copy === NaN) {
-    //           console.warn('Expected copies to be a numerical value for ' + form + ' form object') 
-    //         }            
-            
+    //           console.warn('Expected copies to be a numerical value for ' + form + ' form object')
+    //         }
+
     //         var pages = Object.keys(dataObj.forms[form][copy])
     //         for(var x=0; x < pages.length; x++) {
     //           var page = parseInt(pages[j])
     //           if (page === NaN) {
-    //             console.warn('Expected pages to be a numerical value for ' + form + ' form object') 
-    //           }                  
+    //             console.warn('Expected pages to be a numerical value for ' + form + ' form object')
+    //           }
     //           console.log(form + ' copy: ' + copy + ' pages:', pages.length)
     //         }
     //       }
@@ -124,7 +144,6 @@ const fileHelper = {
 
     //   // check input field object structure is correct
 
-        
     //     for (var key in dataObj.forms[form]) {
     //       var obj = dataObj.forms[form][key];
     //       let inputKeys = ['defaultValue', 'top', 'left', 'width', 'height']
@@ -137,51 +156,54 @@ const fileHelper = {
     //          }
     //       }
 
-          // if (!obj.hasOwnProperty('top')){
-          //   console.log(key, 'is missing')
-          // }
-          // if (!obj.hasOwnProperty('left')){
-          //   console.log(key, 'is missing')
-          // }
-          // if (!obj.hasOwnProperty('width')){
-          //   console.log(key, 'is missing')
-          // }
-          // if (!obj.hasOwnProperty('height')){
-          //   console.log(key, 'is missing')
-          // }
+    // if (!obj.hasOwnProperty('top')){
+    //   console.log(key, 'is missing')
+    // }
+    // if (!obj.hasOwnProperty('left')){
+    //   console.log(key, 'is missing')
+    // }
+    // if (!obj.hasOwnProperty('width')){
+    //   console.log(key, 'is missing')
+    // }
+    // if (!obj.hasOwnProperty('height')){
+    //   console.log(key, 'is missing')
+    // }
     //     }
 
     //   }
     // }
-    
+
     // test inside form name it has a header
-        // test it has width
-        // test it has px
-        // test it has bgImage
-        // test the files an extension of png, jpg, img
+    // test it has width
+    // test it has px
+    // test it has bgImage
+    // test the files an extension of png, jpg, img
 
     // test there is a copy number
 
     // test there is a page number
 
     // test the field names
-      // test it has : {
-        //   "defaultValue": "John Doe",
-        //   "top": "310px",
-        //   "left": "80px",
-        //   "width": "200px",
-        //   "height": "13px"
-        // },
+    // test it has : {
+    //   "defaultValue": "John Doe",
+    //   "top": "310px",
+    //   "left": "80px",
+    //   "width": "200px",
+    //   "height": "13px"
+    // },
     // dataObj type
 
-    let data = dataObj.forms.ex_w8[1][1]
-    let err = ''
-    for(var obj in data) {
-      if(data[obj].hasOwnProperty('mandatory') && (data[obj]['value'] == '' || data[obj]['defaultValue'] == ''))
-      err += obj + ' is a mandatory field. '
+    let data = dataObj.forms.ex_w8[1][1];
+    let err = "";
+    for (var obj in data) {
+      if (
+        data[obj].hasOwnProperty("mandatory") &&
+        (data[obj]["value"] == "" || data[obj]["defaultValue"] == "")
+      )
+        err += obj + " is a mandatory field. ";
     }
-    return err
+    return err;
   }
-}
+};
 
 export default fileHelper;
