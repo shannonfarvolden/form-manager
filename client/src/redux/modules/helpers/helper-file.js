@@ -176,22 +176,11 @@ const fileHelper = {
 
     let data = dataObj.forms.ex_w8[1][1]
     let err = 'Errors: '
-    for (let key in data) {
-      let items = data[key];
-      
-      for(let k in items) {
-        if(k == 'mandatory') {
-          err += (key + ' field is ' + k)
-          
-        }
-        if(k == 'disabled') {
-          err += (key + ' field is ' + k)
-          
-        }
-      }
+    for(var obj in data) {
+      if(data[obj].hasOwnProperty('mandatory') && (data[obj]['value'] == '' || data[obj]['defaultValue'] == ''))
+      err += obj + ' is a mandatory field. '
     }
-      console.log('in helper, err=', err)
-      return err
+    return err
   }
 }
 
