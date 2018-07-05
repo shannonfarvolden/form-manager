@@ -25,7 +25,7 @@ class FormContainer extends Component {
 
   render() {
     const currentPageArr = this.props.currentPageId && this.props.currentPageId.split('-');
-    debugger
+  
     return (
       this.props.isLoading  ?
         <p>Loading</p>

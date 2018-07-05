@@ -224,8 +224,7 @@ export const configReducer = (state = initialState, action) => {
         }
     case 'TEST_CONFIG':
       const msg = fileHelper.testConfig({forms: state.forms});
-      debugger
-      console.log('in redux, err=', msg)
+
       return {
         ...state,
         error: msg
